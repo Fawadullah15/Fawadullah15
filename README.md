@@ -33,7 +33,7 @@
 
 <blockquote>
 BS Artificial Intelligence<br>
-University of Engineering and Technology, Pakistan<br>
+University of Peshawar, Pakistan<br>
 <br>
 Building intelligent systems and clean interfaces.<br>
 AI Engineer in progress. Frontend architect by day.
@@ -45,7 +45,7 @@ AI Engineer in progress. Frontend architect by day.
 — AI Engineer<br>
 — Frontend Developer<br>
 — FastAPI · React · Python<br>
-— UET Peshawar, Pakistan<br>
+— University of Peshawar, Pakistan<br>
 — Open to work · Open to collaborate
 </samp>
 
@@ -72,7 +72,7 @@ currently building<br>
 
 <blockquote>
 Full-stack developer with a focus on AI engineering.<br>
-Studying BS Artificial Intelligence at UET Peshawar.<br>
+Studying BS Artificial Intelligence at University of Peshawar.<br>
 I build production systems — APIs, frontends, and AI pipelines —<br>
 with the goal of eventually shipping AI SaaS products and<br>
 contributing meaningfully to open source.
