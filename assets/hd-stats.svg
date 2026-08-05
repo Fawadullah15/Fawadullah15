@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="30" viewBox="0 0 800 30">
+<style>@font-face{font-family:"JB";src:local("JetBrains Mono"),local("Courier New");}</style>
+<rect width="800" height="30" fill="#0a0a0f"/>
+<rect x="0" y="9" width="2" height="13" fill="#6e7ef7" rx="1"/>
+<text x="9" y="21" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="12" fill="#5a5a80" letter-spacing="0.06em">github statistics</text>
+<line x1="146" y1="16" x2="799" y2="16" stroke="#1e1e35" stroke-width="1"/>
+</svg>

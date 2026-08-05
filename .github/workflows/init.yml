@@ -1,0 +1,73 @@
+name: init profile
+
+# One-time setup workflow.
+# Run this manually via "Run workflow" after pushing the repo.
+# It will:
+#   1. Download JetBrains Mono and subset the font files
+#   2. Generate all heading SVGs
+#   3. Generate the portrait placeholder (or process portrait_input.jpg if present)
+#   4. Commit everything
+
+# This does NOT run on schedule — only on workflow_dispatch.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_LOGIN:     ${{ github.repository_owner }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install font tools
+        run: pip install fonttools brotli Pillow
+
+      - name: Generate font subsets
+        run: python3 scripts/gen_fonts.py
+
+      - name: Generate heading SVGs
+        run: python3 scripts/gen_headings.py
+
+      - name: Generate portrait
+        run: python3 scripts/gen_portrait.py
+
+      - name: Generate initial stats SVGs
+        run: python3 scripts/gen_stats.py
+
+      - name: Generate initial project cards
+        run: python3 scripts/gen_projects.py
+
+      - name: Commit generated files
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Stage everything generated
+          git add fonts/*.b64 assets/ || true
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "init: generate profile assets [skip ci]"
+          git push
+
+      - name: Done
+        run: |
+          echo ""
+          echo "Profile assets generated successfully."
+          echo "Visit https://github.com/${{ github.repository_owner }} to see your profile."

@@ -1,0 +1,18 @@
+# Local development dependencies
+# For running the generators on your machine (not needed in CI)
+#
+# Install with:
+#   pip install -r requirements-dev.txt
+
+# SVG generators (stats/projects use stdlib only — no entry needed)
+
+# Portrait generator — photo pipeline
+Pillow>=10.0.0
+
+# Portrait generator — background removal (optional, improves portrait quality)
+# rembg>=2.0.50
+# onnxruntime>=1.16.0
+
+# Font subsetting — needed only to regenerate fonts/*.b64
+fonttools>=4.43.0
+brotli>=1.1.0
