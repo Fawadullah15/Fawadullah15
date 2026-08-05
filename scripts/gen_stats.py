@@ -182,8 +182,9 @@ def gen_stats(data: dict, days: list[tuple[str, int]]) -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
         f'<style>{font_face("data")}</style>',
         f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
+        f'<g class="animate-in">',
         # left border accent
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["accent"]}" rx="0"/>',
+        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
     ]
 
     # ── Left panel: key numbers ──
@@ -252,6 +253,7 @@ def gen_stats(data: dict, days: list[tuple[str, int]]) -> str:
     # Baseline rule
     out.append(f'<line x1="{cx0}" y1="{cy1}" x2="{cx1}" y2="{cy1}" stroke="{COLORS["border"]}" stroke-width="1"/>')
 
+    out.append('</g>')
     out.append('</svg>')
     return "\n".join(out) + "\n"
 
@@ -281,7 +283,8 @@ def gen_streak(streaks: dict) -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
         f'<style>{font_face("data")}</style>',
         f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["accent"]}" rx="0"/>',
+        f'<g class="animate-in">',
+        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
     ]
 
     # ── Current streak (left) ──
@@ -325,6 +328,7 @@ def gen_streak(streaks: dict) -> str:
         f'font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">all-time best</text>',
     ]
 
+    out.append('</g>')
     out.append('</svg>')
     return "\n".join(out) + "\n"
 
@@ -333,33 +337,13 @@ def gen_streak(streaks: dict) -> str:
 # SVG: langs.svg  (800 × 200)
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Language → hex color mapping (a curated subset)
-LANG_COLORS: dict[str, str] = {
-    "Python":       "#3776ab",
-    "TypeScript":   "#3178c6",
-    "JavaScript":   "#f7df1e",
-    "HTML":         "#e44d26",
-    "CSS":          "#1572b6",
-    "Rust":         "#dea584",
-    "Go":           "#00add8",
-    "C":            "#555555",
-    "C++":          "#f34b7d",
-    "Java":         "#b07219",
-    "Kotlin":       "#a97bff",
-    "Swift":        "#f05138",
-    "Ruby":         "#701516",
-    "Shell":        "#89e051",
-    "Dockerfile":   "#384d54",
-    "MDX":          "#fcb32c",
-    "Markdown":     "#4a4a4a",
-    "YAML":         "#cb171e",
-    "JSON":         "#8bc34a",
-    "Vue":          "#41b883",
-    "Svelte":       "#ff3e00",
-}
+# Premium monochrome shades for languages
+MONO_SHADES = [
+    "#ffffff", "#e4e4e7", "#a1a1aa", "#71717a", "#52525b", "#3f3f46", "#27272a", "#18181b"
+]
 
-def lang_color(name: str) -> str:
-    return LANG_COLORS.get(name, COLORS["muted"])
+def lang_color(index: int) -> str:
+    return MONO_SHADES[index % len(MONO_SHADES)]
 
 
 def gen_langs(langs: list[tuple[str, int]]) -> str:
@@ -371,7 +355,8 @@ def gen_langs(langs: list[tuple[str, int]]) -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
         f'<style>{font_face("data")}</style>',
         f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["accent"]}" rx="0"/>',
+        f'<g class="animate-in">',
+        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
         f'<text x="18" y="20" '
         f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
         f'font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">top languages · by bytes</text>',
@@ -386,7 +371,7 @@ def gen_langs(langs: list[tuple[str, int]]) -> str:
         pct   = size / total_bytes
         bar_w = int(pct * (bar_x_max - bar_x0))
         y     = start_y + i * row_h
-        col   = lang_color(name)
+        col   = lang_color(i)
         pct_s = f"{pct * 100:.1f}%"
 
         # Language name
@@ -418,15 +403,16 @@ def gen_langs(langs: list[tuple[str, int]]) -> str:
     mini_h  = 4
     cursor  = 18
     mini_w  = W - 36
-    for name, size in top:
+    for i, (name, size) in enumerate(top):
         seg_w = int((size / total_bytes) * mini_w)
         if seg_w > 0:
             out.append(
                 f'<rect x="{cursor}" y="{mini_y}" width="{seg_w}" height="{mini_h}" '
-                f'fill="{lang_color(name)}" opacity="0.9"/>'
+                f'fill="{lang_color(i)}" opacity="0.9"/>'
             )
             cursor += seg_w
 
+    out.append('</g>')
     out.append('</svg>')
     return "\n".join(out) + "\n"
 
@@ -461,7 +447,8 @@ def gen_year(days: list[tuple[str, int]]) -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
         f'<style>{font_face("data")}</style>',
         f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["accent"]}" rx="0"/>',
+        f'<g class="animate-in">',
+        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
         f'<text x="18" y="20" '
         f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
         f'font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">'
@@ -521,6 +508,7 @@ def gen_year(days: list[tuple[str, int]]) -> str:
             )
             prev_month = d.month
 
+    out.append('</g>')
     out.append('</svg>')
     return "\n".join(out) + "\n"
 

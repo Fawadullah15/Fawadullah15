@@ -57,13 +57,14 @@ KNOWN_REPOS = [
     },
 ]
 
-LANG_COLORS = {
-    "TypeScript": "#3178c6",
-    "Python":     "#3776ab",
-    "HTML":       "#e44d26",
-    "JavaScript": "#f7df1e",
-    "CSS":        "#1572b6",
-}
+MONO_SHADES = [
+    "#ffffff", "#e4e4e7", "#a1a1aa", "#71717a", "#52525b", "#3f3f46", "#27272a", "#18181b"
+]
+
+def lang_color(name: str) -> str:
+    # Hash the name to pick a consistent monochrome shade
+    idx = sum(ord(c) for c in name) % len(MONO_SHADES)
+    return MONO_SHADES[idx]
 
 
 def truncate(s: str, n: int) -> str:
@@ -100,12 +101,17 @@ def card_svg(repo: dict, cx: int, cy: int) -> list[str]:
     stars  = repo.get("stargazers_count", 0)
     forks  = repo.get("forks_count", 0)
     pushed = fmt_date(repo.get("pushed_at", ""))
-    lcolor = LANG_COLORS.get(lang, COLORS["muted"])
+    lcolor = lang_color(lang)
 
-    lines = [
-        f'<rect x="{cx}" y="{cy}" width="{CARD_W}" height="{CARD_H}" fill="{COLORS["bg2"]}" rx="6" stroke="{COLORS["border"]}" stroke-width="1"/>',
-        f'<rect x="{cx}" y="{cy}" width="{CARD_W}" height="2" fill="{COLORS["accent"]}" rx="2"/>',
-    ]
+    lines = []
+    
+    # Staggered animation delay
+    delay = 0.1 * (cx // CARD_W + cy // CARD_H)
+    lines.append(f'<g class="animate-in" style="animation-delay: {delay}s">')
+    
+    lines.append(
+        f'<rect x="{cx}" y="{cy}" width="{CARD_W}" height="{CARD_H}" fill="{COLORS["bg2"]}" rx="6" stroke="{COLORS["border"]}" stroke-width="1"/>'
+    )
 
     px = cx + 16
     lines.append(
@@ -142,6 +148,7 @@ def card_svg(repo: dict, cx: int, cy: int) -> list[str]:
         f'<text x="{px+140}" y="{by+4}" font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' font-size="10" fill="{COLORS["dim"]}">⑂ {forks}</text>',
         f'<text x="{cx+CARD_W-16}" y="{by+4}" font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' font-size="9" fill="{COLORS["muted"]}" text-anchor="end">{_esc(pushed)}</text>',
     ]
+    lines.append('</g>')
     return lines
 
 
@@ -150,9 +157,15 @@ def run() -> None:
     svg_h = 20 + CARD_H * 2 + GAP + 16
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{svg_h}" viewBox="0 0 {W} {svg_h}">',
-        f'<style>{font_face("data")}</style>',
+        f'<style>{font_face("data")}',
+        f'@keyframes fadeUp {{',
+        f'  from {{ opacity: 0; transform: translateY(4px); }}',
+        f'  to {{ opacity: 1; transform: translateY(0); }}',
+        f'}}',
+        f'g.animate-in {{ animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }}',
+        f'</style>',
         f'<rect width="{W}" height="{svg_h}" fill="{COLORS["bg"]}"/>',
-        f'<rect x="0" y="0" width="2" height="{svg_h}" fill="{COLORS["accent"]}" rx="0"/>',
+        f'<rect x="0" y="0" width="2" height="{svg_h}" fill="{COLORS["border"]}" rx="0"/>',
     ]
 
     for i, repo in enumerate(KNOWN_REPOS):

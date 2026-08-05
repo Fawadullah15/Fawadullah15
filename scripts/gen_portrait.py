@@ -213,14 +213,14 @@ def build_svg(rows: list[str]) -> str:
         cur_h = LINE_H - 1
         lines.append(
             f'<rect y="{cur_y:.1f}" width="{CHAR_W:.2f}" height="{cur_h:.1f}" '
-            f'fill="{COLORS["accent"]}" opacity="0.8">'
+            f'fill="{COLORS["accent"]}" opacity="0.3">'
             # x position tracks the wipe
             f'<animate attributeName="x" '
             f'from="{PAD_X}" to="{PAD_X + full_text_w:.1f}" '
             f'begin="{begin}" dur="{ROW_DUR}s" fill="freeze"/>'
             # fade out when row finishes
             f'<animate attributeName="opacity" '
-            f'from="0.8" to="0" '
+            f'from="0.3" to="0" '
             f'begin="{end_t:.3f}s" dur="0.05s" fill="freeze"/>'
             f'</rect>'
         )

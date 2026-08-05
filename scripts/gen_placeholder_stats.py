@@ -144,6 +144,7 @@ def gen_stats_ph() -> str:
             out.append(f'<rect x="{bx}" y="{by}" width="{bar_w}" height="{bh}" fill="{fill}" rx="1"/>')
 
     out.append(f'<line x1="{cx0}" y1="{cy1}" x2="{cx1}" y2="{cy1}" stroke="{COLORS["border"]}" stroke-width="1"/>')
+    out.append('</g>')
     out.append('</svg>')
     return "\n".join(out) + "\n"
 
@@ -181,19 +182,19 @@ def gen_streak_ph() -> str:
         f'<text x="418" y="20" font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">all-time best</text>',
     ]
 
+    out.append('</g>')
     out.append('</svg>')
     return "\n".join(out) + "\n"
 
 
 # ── langs.svg ─────────────────────────────────────────────────────────────────
 
-LANG_COLORS = {
-    "Python":     "#3776ab",
-    "TypeScript": "#3178c6",
-    "HTML":       "#e44d26",
-    "JavaScript": "#f7df1e",
-    "CSS":        "#1572b6",
-}
+MONO_SHADES = [
+    "#ffffff", "#e4e4e7", "#a1a1aa", "#71717a", "#52525b", "#3f3f46", "#27272a", "#18181b"
+]
+
+def lang_color(index: int) -> str:
+    return MONO_SHADES[index % len(MONO_SHADES)]
 
 def gen_langs_ph() -> str:
     W, H = 800, 200
@@ -204,7 +205,8 @@ def gen_langs_ph() -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
         f'<style>{font_face("data")}</style>',
         f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["accent"]}" rx="0"/>',
+        f'<g class="animate-in">',
+        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
         f'<text x="18" y="20" font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">top languages · by bytes</text>',
     ]
 
@@ -213,7 +215,7 @@ def gen_langs_ph() -> str:
         pct  = pct_raw / 100
         bw   = int(pct * (bar_x_max - bar_x0))
         y    = start_y + i * row_h
-        col  = LANG_COLORS.get(name, COLORS["muted"])
+        col  = lang_color(i)
         pcts = f"{pct * 100:.1f}%"
         out += [
             f'<text x="18" y="{y+13}" font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' font-size="11" fill="{COLORS["text"]}">{_esc(name)}</text>',
@@ -224,12 +226,13 @@ def gen_langs_ph() -> str:
         out.append(f'<text x="{bar_x_max+8}" y="{y+13}" font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' font-size="10" fill="{COLORS["dim"]}">{_esc(pcts)}</text>')
 
     mini_y = H - 14; mini_h = 4; cursor = 18; mini_w = W - 36
-    for name, pct_raw in langs:
+    for i, (name, pct_raw) in enumerate(langs):
         seg_w = int((pct_raw / 100) * mini_w)
         if seg_w > 0:
-            out.append(f'<rect x="{cursor}" y="{mini_y}" width="{seg_w}" height="{mini_h}" fill="{LANG_COLORS.get(name, COLORS["muted"])}" opacity="0.9"/>')
+            out.append(f'<rect x="{cursor}" y="{mini_y}" width="{seg_w}" height="{mini_h}" fill="{lang_color(i)}" opacity="0.9"/>')
             cursor += seg_w
 
+    out.append('</g>')
     out.append('</svg>')
     return "\n".join(out) + "\n"
 
@@ -250,7 +253,8 @@ def gen_year_ph() -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
         f'<style>{font_face("data")}</style>',
         f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["accent"]}" rx="0"/>',
+        f'<g class="animate-in">',
+        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
         f'<text x="18" y="20" font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">contribution activity · 365 days</text>',
     ]
 

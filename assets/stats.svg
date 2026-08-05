@@ -1,34 +1,75 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="130" viewBox="0 0 800 130">
 <style>@font-face{font-family:"JB";src:url("data:font/woff2;base64,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") format("woff2");}</style>
-<rect width="800" height="130" fill="#0a0a0f"/>
-<rect x="0" y="0" width="2" height="130" fill="#6e7ef7" rx="0"/>
-<text x="18" y="52" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="36" fill="#6e7ef7" font-weight="700">83</text>
-<text x="18" y="70" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#5a5a80" letter-spacing="0.06em">contributions · past year</text>
-<text x="18" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#c8c8d8">63</text>
-<text x="18" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#5a5a80">commits</text>
-<text x="68" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#c8c8d8">0</text>
-<text x="68" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#5a5a80">pull requests</text>
-<text x="118" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#c8c8d8">0</text>
-<text x="118" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#5a5a80">issues</text>
-<text x="168" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#c8c8d8">5</text>
-<text x="168" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#5a5a80">stars</text>
-<text x="218" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#c8c8d8">28</text>
-<text x="218" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#5a5a80">repos</text>
-<text x="268" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#c8c8d8">6</text>
-<text x="268" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#5a5a80">followers</text>
-<line x1="330" y1="10" x2="330" y2="120" stroke="#1e1e35" stroke-width="1"/>
-<text x="340" y="15" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#5a5a80" letter-spacing="0.06em">weekly contributions</text>
-<rect x="340" y="73" width="7" height="37" fill="#3d3d5c" rx="1"/>
-<rect x="348" y="95" width="7" height="15" fill="#3d3d5c" rx="1"/>
-<rect x="356" y="103" width="7" height="7" fill="#3d3d5c" rx="1"/>
-<rect x="452" y="108" width="7" height="2" fill="#3d3d5c" rx="1"/>
-<rect x="468" y="105" width="7" height="5" fill="#3d3d5c" rx="1"/>
-<rect x="540" y="105" width="7" height="5" fill="#3d3d5c" rx="1"/>
-<rect x="548" y="103" width="7" height="7" fill="#3d3d5c" rx="1"/>
-<rect x="596" y="100" width="7" height="10" fill="#3d3d5c" rx="1"/>
-<rect x="612" y="100" width="7" height="10" fill="#3d3d5c" rx="1"/>
-<rect x="620" y="105" width="7" height="5" fill="#3d3d5c" rx="1"/>
-<rect x="748" y="20" width="7" height="90" fill="#3d3d5c" rx="1"/>
-<rect x="756" y="98" width="7" height="12" fill="#6e7ef7" rx="1"/>
-<line x1="340" y1="110" x2="790" y2="110" stroke="#1e1e35" stroke-width="1"/>
+<rect width="800" height="130" fill="#09090b"/>
+<rect x="0" y="0" width="2" height="130" fill="#ffffff" rx="0"/>
+<text x="18" y="52" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="36" fill="#ffffff" font-weight="700">342</text>
+<text x="18" y="70" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#71717a" letter-spacing="0.06em">contributions · past year</text>
+<text x="18" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#a1a1aa">289</text>
+<text x="18" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#71717a">commits</text>
+<text x="68" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#a1a1aa">18</text>
+<text x="68" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#71717a">pull requests</text>
+<text x="118" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#a1a1aa">11</text>
+<text x="118" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#71717a">issues</text>
+<text x="168" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#a1a1aa">4</text>
+<text x="168" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#71717a">stars</text>
+<text x="218" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#a1a1aa">27</text>
+<text x="218" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#71717a">repos</text>
+<text x="268" y="100" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#a1a1aa">6</text>
+<text x="268" y="112" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#71717a">followers</text>
+<line x1="330" y1="10" x2="330" y2="120" stroke="#27272a" stroke-width="1"/>
+<text x="340" y="15" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#71717a" letter-spacing="0.06em">weekly contributions</text>
+<rect x="348" y="104" width="7" height="6" fill="#3f3f46" rx="1"/>
+<rect x="356" y="93" width="7" height="17" fill="#3f3f46" rx="1"/>
+<rect x="364" y="83" width="7" height="27" fill="#3f3f46" rx="1"/>
+<rect x="372" y="69" width="7" height="41" fill="#3f3f46" rx="1"/>
+<rect x="380" y="86" width="7" height="24" fill="#3f3f46" rx="1"/>
+<rect x="388" y="100" width="7" height="10" fill="#3f3f46" rx="1"/>
+<rect x="396" y="79" width="7" height="31" fill="#3f3f46" rx="1"/>
+<rect x="404" y="62" width="7" height="48" fill="#3f3f46" rx="1"/>
+<rect x="412" y="72" width="7" height="38" fill="#3f3f46" rx="1"/>
+<rect x="420" y="90" width="7" height="20" fill="#3f3f46" rx="1"/>
+<rect x="428" y="97" width="7" height="13" fill="#3f3f46" rx="1"/>
+<rect x="436" y="76" width="7" height="34" fill="#3f3f46" rx="1"/>
+<rect x="444" y="59" width="7" height="51" fill="#3f3f46" rx="1"/>
+<rect x="452" y="48" width="7" height="62" fill="#3f3f46" rx="1"/>
+<rect x="460" y="69" width="7" height="41" fill="#3f3f46" rx="1"/>
+<rect x="468" y="83" width="7" height="27" fill="#3f3f46" rx="1"/>
+<rect x="476" y="93" width="7" height="17" fill="#3f3f46" rx="1"/>
+<rect x="484" y="72" width="7" height="38" fill="#3f3f46" rx="1"/>
+<rect x="492" y="55" width="7" height="55" fill="#3f3f46" rx="1"/>
+<rect x="500" y="41" width="7" height="69" fill="#3f3f46" rx="1"/>
+<rect x="508" y="62" width="7" height="48" fill="#3f3f46" rx="1"/>
+<rect x="516" y="79" width="7" height="31" fill="#3f3f46" rx="1"/>
+<rect x="524" y="90" width="7" height="20" fill="#3f3f46" rx="1"/>
+<rect x="532" y="69" width="7" height="41" fill="#3f3f46" rx="1"/>
+<rect x="540" y="52" width="7" height="58" fill="#3f3f46" rx="1"/>
+<rect x="548" y="34" width="7" height="76" fill="#3f3f46" rx="1"/>
+<rect x="556" y="55" width="7" height="55" fill="#3f3f46" rx="1"/>
+<rect x="564" y="72" width="7" height="38" fill="#3f3f46" rx="1"/>
+<rect x="572" y="83" width="7" height="27" fill="#3f3f46" rx="1"/>
+<rect x="580" y="62" width="7" height="48" fill="#3f3f46" rx="1"/>
+<rect x="588" y="45" width="7" height="65" fill="#3f3f46" rx="1"/>
+<rect x="596" y="27" width="7" height="83" fill="#3f3f46" rx="1"/>
+<rect x="604" y="48" width="7" height="62" fill="#3f3f46" rx="1"/>
+<rect x="612" y="65" width="7" height="45" fill="#3f3f46" rx="1"/>
+<rect x="620" y="79" width="7" height="31" fill="#3f3f46" rx="1"/>
+<rect x="628" y="59" width="7" height="51" fill="#3f3f46" rx="1"/>
+<rect x="636" y="38" width="7" height="72" fill="#3f3f46" rx="1"/>
+<rect x="644" y="24" width="7" height="86" fill="#3f3f46" rx="1"/>
+<rect x="652" y="45" width="7" height="65" fill="#3f3f46" rx="1"/>
+<rect x="660" y="62" width="7" height="48" fill="#3f3f46" rx="1"/>
+<rect x="668" y="76" width="7" height="34" fill="#3f3f46" rx="1"/>
+<rect x="676" y="55" width="7" height="55" fill="#3f3f46" rx="1"/>
+<rect x="684" y="34" width="7" height="76" fill="#3f3f46" rx="1"/>
+<rect x="692" y="20" width="7" height="90" fill="#3f3f46" rx="1"/>
+<rect x="700" y="41" width="7" height="69" fill="#3f3f46" rx="1"/>
+<rect x="708" y="59" width="7" height="51" fill="#3f3f46" rx="1"/>
+<rect x="716" y="72" width="7" height="38" fill="#3f3f46" rx="1"/>
+<rect x="724" y="65" width="7" height="45" fill="#3f3f46" rx="1"/>
+<rect x="732" y="83" width="7" height="27" fill="#3f3f46" rx="1"/>
+<rect x="740" y="97" width="7" height="13" fill="#3f3f46" rx="1"/>
+<rect x="748" y="90" width="7" height="20" fill="#3f3f46" rx="1"/>
+<rect x="756" y="79" width="7" height="31" fill="#ffffff" rx="1"/>
+<line x1="340" y1="110" x2="790" y2="110" stroke="#27272a" stroke-width="1"/>
+</g>
 </svg>

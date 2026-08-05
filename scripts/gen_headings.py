@@ -77,29 +77,50 @@ def make_heading_svg_clean(text: str, b64: str | None = None) -> str:
             '}'
         )
 
-    char_w  = 7.74  # JetBrains Mono advance at font-size 12.9
-    fs      = 12
-    text_w  = int(len(text) * char_w * (fs / 12.9)) + 16
-    rule_x  = text_w + 8
+    # Use uppercase for a more architectural, premium feel
+    label_text = text.upper()
+    
+    char_w  = 7.74  
+    fs      = 11
+    # Wide tracking: extra spacing per char
+    letter_spacing = 0.2
+    text_w  = int(len(label_text) * char_w * (fs / 12.9) * (1 + letter_spacing)) + 12
+    rule_x  = text_w + 12
 
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
-        f'<style>{face}</style>',
+        f'<style>',
+        f'{face}',
+        f'@keyframes fadeRight {{',
+        f'  from {{ opacity: 0; transform: translateX(-4px); }}',
+        f'  to {{ opacity: 1; transform: translateX(0); }}',
+        f'}}',
+        f'g.animate-in {{ animation: fadeRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }}',
+        f'</style>',
+        f'<defs>',
+        f'  <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">',
+        f'    <stop offset="0%" stop-color="{COLORS["border"]}" stop-opacity="1"/>',
+        f'    <stop offset="100%" stop-color="{COLORS["bg"]}" stop-opacity="1"/>',
+        f'  </linearGradient>',
+        f'</defs>',
         f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        # left accent bar
-        f'<rect x="0" y="9" width="2" height="13" fill="{COLORS["accent"]}" rx="1"/>',
+        f'<g class="animate-in">',
+        # left accent dot instead of bar
+        f'<circle cx="2" cy="15.5" r="2" fill="{COLORS["accent"]}"/>',
         # label
         (
-            f'<text x="9" y="21" '
+            f'<text x="12" y="20" '
             f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-            f'font-size="{fs}" fill="{COLORS["dim"]}" '
-            f'letter-spacing="0.06em">{_esc(text)}</text>'
+            f'font-size="{fs}" fill="{COLORS["text_hi"]}" font-weight="600" '
+            f'letter-spacing="{letter_spacing}em">{_esc(label_text)}</text>'
         ),
-        # hairline rule
-        f'<line x1="{rule_x}" y1="16" x2="{W - 1}" y2="16" stroke="{COLORS["border"]}" stroke-width="1"/>',
+        # gradient hairline rule
+        f'<line x1="{rule_x}" y1="15.5" x2="{W}" y2="15.5" stroke="url(#fade)" stroke-width="1"/>',
+        f'</g>',
         '</svg>',
     ]
     return "\n".join(lines) + "\n"
+
 
 
 def run() -> None:

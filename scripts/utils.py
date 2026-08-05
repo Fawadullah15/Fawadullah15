@@ -18,19 +18,19 @@ FONTS  = ROOT / "fonts"
 
 # ── Design tokens ─────────────────────────────────────────────────────────────
 COLORS = {
-    "bg":       "#0a0a0f",
-    "bg2":      "#10101a",
-    "bg3":      "#16162a",
-    "border":   "#1e1e35",
-    "muted":    "#3d3d5c",
-    "dim":      "#5a5a80",
-    "text":     "#c8c8d8",
-    "text_hi":  "#e8e8f0",
-    "accent":   "#6e7ef7",
-    "accent2":  "#9b8ff5",
-    "green":    "#4ade80",
-    "amber":    "#fbbf24",
-    "red":      "#f87171",
+    "bg":       "#09090b",
+    "bg2":      "#121214",
+    "bg3":      "#18181b",
+    "border":   "#27272a",
+    "muted":    "#3f3f46",
+    "dim":      "#71717a",
+    "text":     "#a1a1aa",
+    "text_hi":  "#e4e4e7",
+    "accent":   "#ffffff",
+    "accent2":  "#e4e4e7",
+    "green":    "#a1a1aa",
+    "amber":    "#a1a1aa",
+    "red":      "#a1a1aa",
 }
 
 RAMP = " .`:-=+*cs#%@"   # 14 chars, index 0 = blank
@@ -145,6 +145,11 @@ def svg_open(w: int, h: int, extra_style: str = "") -> str:
         f'<style>\n'
         f'{ff}\n'
         f'* {{font-family:"JB","JetBrains Mono","Courier New",Courier,monospace;}}\n'
+        f'@keyframes fadeUp {{\n'
+        f'  from {{ opacity: 0; transform: translateY(4px); }}\n'
+        f'  to {{ opacity: 1; transform: translateY(0); }}\n'
+        f'}}\n'
+        f'g.animate-in {{ animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }}\n'
         f'{extra_style}\n'
         f'</style>\n'
         f'<rect width="{w}" height="{h}" fill="{COLORS["bg"]}"/>\n'
