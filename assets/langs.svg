@@ -1,31 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200">
-<style>@font-face{font-family:"JB";src:local("JetBrains Mono"),local("Courier New");}</style>
+<style>@font-face{font-family:"JB";src:url("data:font/woff2;base64,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") format("woff2");}</style>
 <rect width="800" height="200" fill="#0a0a0f"/>
 <rect x="0" y="0" width="2" height="200" fill="#6e7ef7" rx="0"/>
 <text x="18" y="20" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#5a5a80" letter-spacing="0.06em">top languages · by bytes</text>
-<text x="18" y="45" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">Python</text>
+<text x="18" y="45" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">HTML</text>
 <rect x="160" y="36" width="460" height="10" fill="#16162a" rx="2"/>
-<rect x="160" y="36" width="266" height="10" fill="#3776ab" rx="2" opacity="0.85"/>
-<text x="628" y="45" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">58.0%</text>
+<rect x="160" y="36" width="313" height="10" fill="#e44d26" rx="2" opacity="0.85"/>
+<text x="628" y="45" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">68.1%</text>
 <text x="18" y="67" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">TypeScript</text>
 <rect x="160" y="58" width="460" height="10" fill="#16162a" rx="2"/>
-<rect x="160" y="58" width="96" height="10" fill="#3178c6" rx="2" opacity="0.85"/>
-<text x="628" y="67" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">21.0%</text>
-<text x="18" y="89" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">HTML</text>
+<rect x="160" y="58" width="83" height="10" fill="#3178c6" rx="2" opacity="0.85"/>
+<text x="628" y="67" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">18.1%</text>
+<text x="18" y="89" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">Python</text>
 <rect x="160" y="80" width="460" height="10" fill="#16162a" rx="2"/>
-<rect x="160" y="80" width="50" height="10" fill="#e44d26" rx="2" opacity="0.85"/>
-<text x="628" y="89" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">11.0%</text>
-<text x="18" y="111" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">JavaScript</text>
+<rect x="160" y="80" width="20" height="10" fill="#3776ab" rx="2" opacity="0.85"/>
+<text x="628" y="89" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">4.4%</text>
+<text x="18" y="111" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">Java</text>
 <rect x="160" y="102" width="460" height="10" fill="#16162a" rx="2"/>
-<rect x="160" y="102" width="27" height="10" fill="#f7df1e" rx="2" opacity="0.85"/>
-<text x="628" y="111" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">6.0%</text>
-<text x="18" y="133" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">CSS</text>
+<rect x="160" y="102" width="14" height="10" fill="#b07219" rx="2" opacity="0.85"/>
+<text x="628" y="111" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">3.3%</text>
+<text x="18" y="133" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">JavaScript</text>
 <rect x="160" y="124" width="460" height="10" fill="#16162a" rx="2"/>
-<rect x="160" y="124" width="18" height="10" fill="#1572b6" rx="2" opacity="0.85"/>
-<text x="628" y="133" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">4.0%</text>
-<rect x="18" y="186" width="443" height="4" fill="#3776ab" opacity="0.9"/>
-<rect x="461" y="186" width="160" height="4" fill="#3178c6" opacity="0.9"/>
-<rect x="621" y="186" width="84" height="4" fill="#e44d26" opacity="0.9"/>
-<rect x="705" y="186" width="45" height="4" fill="#f7df1e" opacity="0.9"/>
-<rect x="750" y="186" width="30" height="4" fill="#1572b6" opacity="0.9"/>
+<rect x="160" y="124" width="14" height="10" fill="#f7df1e" rx="2" opacity="0.85"/>
+<text x="628" y="133" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">3.2%</text>
+<text x="18" y="155" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#c8c8d8">CSS</text>
+<rect x="160" y="146" width="460" height="10" fill="#16162a" rx="2"/>
+<rect x="160" y="146" width="13" height="10" fill="#1572b6" rx="2" opacity="0.85"/>
+<text x="628" y="155" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#5a5a80">3.0%</text>
+<rect x="18" y="186" width="520" height="4" fill="#e44d26" opacity="0.9"/>
+<rect x="538" y="186" width="138" height="4" fill="#3178c6" opacity="0.9"/>
+<rect x="676" y="186" width="33" height="4" fill="#3776ab" opacity="0.9"/>
+<rect x="709" y="186" width="24" height="4" fill="#b07219" opacity="0.9"/>
+<rect x="733" y="186" width="24" height="4" fill="#f7df1e" opacity="0.9"/>
+<rect x="757" y="186" width="22" height="4" fill="#1572b6" opacity="0.9"/>
 </svg>
