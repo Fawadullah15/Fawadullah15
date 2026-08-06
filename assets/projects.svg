@@ -11,19 +11,17 @@ g.animate-in { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; op
 <g class="animate-in" style="animation-delay: 0.0s">
 <rect x="20" y="20" width="370" height="134" fill="#121214" rx="6" stroke="#27272a" stroke-width="1"/>
 <text x="36" y="42" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="13" fill="#e4e4e7" font-weight="600">advance-innovators-school</text>
-<text x="36" y="60" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">Modern school management system with AI</text>
-<text x="36" y="76" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">features and real-time dashboar…</text>
+<text x="36" y="60" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">advance-innovators-school</text>
 <circle cx="40" cy="138" r="4" fill="#18181b"/>
 <text x="50" y="142" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">TypeScript</text>
-<text x="126" y="142" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">★ 0</text>
+<text x="126" y="142" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">★ 1</text>
 <text x="176" y="142" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">⑂ 0</text>
 <text x="374" y="142" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#3f3f46" text-anchor="end">Mar 2026</text>
 </g>
 <g class="animate-in" style="animation-delay: 0.1s">
 <rect x="410" y="20" width="370" height="134" fill="#121214" rx="6" stroke="#27272a" stroke-width="1"/>
 <text x="426" y="42" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="13" fill="#e4e4e7" font-weight="600">deepfakelive</text>
-<text x="426" y="60" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">Real-time deepfake video processing pipeline</text>
-<text x="426" y="76" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">using Python and computer …</text>
+<text x="426" y="60" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">Deep fack live</text>
 <circle cx="430" cy="138" r="4" fill="#a1a1aa"/>
 <text x="440" y="142" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">Python</text>
 <text x="516" y="142" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">★ 1</text>
@@ -33,19 +31,18 @@ g.animate-in { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; op
 <g class="animate-in" style="animation-delay: 0.1s">
 <rect x="20" y="174" width="370" height="134" fill="#121214" rx="6" stroke="#27272a" stroke-width="1"/>
 <text x="36" y="196" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="13" fill="#e4e4e7" font-weight="600">eden-school-system</text>
-<text x="36" y="214" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">Responsive school website built with HTML,</text>
-<text x="36" y="230" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">CSS, and JavaScript</text>
+<text x="36" y="214" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">A modern and responsive website for Eden</text>
+<text x="36" y="230" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">School System, built using HTM…</text>
 <circle cx="40" cy="292" r="4" fill="#3f3f46"/>
 <text x="50" y="296" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">HTML</text>
-<text x="126" y="296" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">★ 1</text>
+<text x="126" y="296" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">★ 0</text>
 <text x="176" y="296" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">⑂ 0</text>
 <text x="374" y="296" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#3f3f46" text-anchor="end">Jun 2025</text>
 </g>
 <g class="animate-in" style="animation-delay: 0.2s">
 <rect x="410" y="174" width="370" height="134" fill="#121214" rx="6" stroke="#27272a" stroke-width="1"/>
 <text x="426" y="196" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="13" fill="#e4e4e7" font-weight="600">fawadullah-monkeytalkie</text>
-<text x="426" y="214" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">Collaboration project for Monkey Talkie —</text>
-<text x="426" y="230" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">deployed on Vercel</text>
+<text x="426" y="214" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10.5" fill="#71717a">fawadullah-monkeytalkie-collaberation</text>
 <circle cx="430" cy="292" r="4" fill="#3f3f46"/>
 <text x="440" y="296" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">HTML</text>
 <text x="516" y="296" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">★ 0</text>

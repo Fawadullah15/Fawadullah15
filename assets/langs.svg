@@ -4,30 +4,35 @@
 <g class="animate-in">
 <rect x="0" y="0" width="2" height="200" fill="#27272a" rx="0"/>
 <text x="18" y="20" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="9" fill="#71717a" letter-spacing="0.06em">top languages · by bytes</text>
-<text x="18" y="45" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">Python</text>
+<text x="18" y="45" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">HTML</text>
 <rect x="160" y="36" width="460" height="10" fill="#18181b" rx="2"/>
-<rect x="160" y="36" width="266" height="10" fill="#ffffff" rx="2" opacity="0.85"/>
-<text x="628" y="45" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">58.0%</text>
+<rect x="160" y="36" width="313" height="10" fill="#ffffff" rx="2" opacity="0.85"/>
+<text x="628" y="45" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">68.1%</text>
 <text x="18" y="67" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">TypeScript</text>
 <rect x="160" y="58" width="460" height="10" fill="#18181b" rx="2"/>
-<rect x="160" y="58" width="96" height="10" fill="#e4e4e7" rx="2" opacity="0.85"/>
-<text x="628" y="67" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">21.0%</text>
-<text x="18" y="89" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">HTML</text>
+<rect x="160" y="58" width="83" height="10" fill="#e4e4e7" rx="2" opacity="0.85"/>
+<text x="628" y="67" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">18.1%</text>
+<text x="18" y="89" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">Python</text>
 <rect x="160" y="80" width="460" height="10" fill="#18181b" rx="2"/>
-<rect x="160" y="80" width="50" height="10" fill="#a1a1aa" rx="2" opacity="0.85"/>
-<text x="628" y="89" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">11.0%</text>
-<text x="18" y="111" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">JavaScript</text>
+<rect x="160" y="80" width="20" height="10" fill="#a1a1aa" rx="2" opacity="0.85"/>
+<text x="628" y="89" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">4.4%</text>
+<text x="18" y="111" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">Java</text>
 <rect x="160" y="102" width="460" height="10" fill="#18181b" rx="2"/>
-<rect x="160" y="102" width="27" height="10" fill="#71717a" rx="2" opacity="0.85"/>
-<text x="628" y="111" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">6.0%</text>
-<text x="18" y="133" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">CSS</text>
+<rect x="160" y="102" width="14" height="10" fill="#71717a" rx="2" opacity="0.85"/>
+<text x="628" y="111" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">3.3%</text>
+<text x="18" y="133" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">JavaScript</text>
 <rect x="160" y="124" width="460" height="10" fill="#18181b" rx="2"/>
-<rect x="160" y="124" width="18" height="10" fill="#52525b" rx="2" opacity="0.85"/>
-<text x="628" y="133" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">4.0%</text>
-<rect x="18" y="186" width="443" height="4" fill="#ffffff" opacity="0.9"/>
-<rect x="461" y="186" width="160" height="4" fill="#e4e4e7" opacity="0.9"/>
-<rect x="621" y="186" width="84" height="4" fill="#a1a1aa" opacity="0.9"/>
-<rect x="705" y="186" width="45" height="4" fill="#71717a" opacity="0.9"/>
-<rect x="750" y="186" width="30" height="4" fill="#52525b" opacity="0.9"/>
+<rect x="160" y="124" width="14" height="10" fill="#52525b" rx="2" opacity="0.85"/>
+<text x="628" y="133" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">3.2%</text>
+<text x="18" y="155" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="11" fill="#a1a1aa">CSS</text>
+<rect x="160" y="146" width="460" height="10" fill="#18181b" rx="2"/>
+<rect x="160" y="146" width="13" height="10" fill="#3f3f46" rx="2" opacity="0.85"/>
+<text x="628" y="155" font-family='&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace' font-size="10" fill="#71717a">3.0%</text>
+<rect x="18" y="186" width="520" height="4" fill="#ffffff" opacity="0.9"/>
+<rect x="538" y="186" width="138" height="4" fill="#e4e4e7" opacity="0.9"/>
+<rect x="676" y="186" width="33" height="4" fill="#a1a1aa" opacity="0.9"/>
+<rect x="709" y="186" width="24" height="4" fill="#71717a" opacity="0.9"/>
+<rect x="733" y="186" width="24" height="4" fill="#52525b" opacity="0.9"/>
+<rect x="757" y="186" width="22" height="4" fill="#3f3f46" opacity="0.9"/>
 </g>
 </svg>
