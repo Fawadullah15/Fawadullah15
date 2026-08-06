@@ -1,17 +1,13 @@
 name: refresh stats
 
-# Runs daily at 04:23 UTC.
-# Deliberately has NO push trigger — this job commits files,
-# and a push trigger would re-run it on its own commit (infinite loop).
-# The [skip ci] suffix on the commit message is a second safety net.
-
+# Daily at 04:23 UTC. No push trigger (avoids infinite loop).
 on:
   schedule:
     - cron: "23 4 * * *"
-  workflow_dispatch:      # enable the "Run workflow" button in GitHub UI
+  workflow_dispatch:
 
 permissions:
-  contents: write         # needed to git push
+  contents: write
 
 jobs:
   refresh:
@@ -21,33 +17,50 @@ jobs:
       GH_LOGIN:     ${{ github.repository_owner }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      # gen_stats.py and gen_projects.py are stdlib-only — no pip install needed.
+      - name: Install optional deps
+        run: pip install Pillow --quiet || true
 
-      - name: Generate stats SVGs
+      - name: Generate headings
+        run: python3 scripts/gen_headings.py
+
+      - name: Generate hero
+        run: python3 scripts/gen_hero.py
+
+      - name: Generate building section
+        run: python3 scripts/gen_building.py
+
+      - name: Generate skills
+        run: python3 scripts/gen_skills.py
+
+      - name: Generate timeline
+        run: python3 scripts/gen_timeline.py
+
+      - name: Generate projects
+        run: python3 scripts/gen_projects.py
+
+      - name: Generate stats
         run: python3 scripts/gen_stats.py
 
-      - name: Generate project cards SVG
-        run: python3 scripts/gen_projects.py
+      - name: Generate portrait
+        run: python3 scripts/gen_portrait.py
+
+      - name: Generate contact
+        run: python3 scripts/gen_contact.py
 
       - name: Commit if changed
         run: |
-          FILES="assets/stats.svg assets/streak.svg assets/langs.svg assets/year.svg assets/projects.svg"
-
-          if [ -z "$(git status --porcelain -- $FILES)" ]; then
+          git add assets/*.svg
+          if [ -z "$(git status --porcelain)" ]; then
             echo "No changes — skipping commit."
             exit 0
           fi
-
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- $FILES
-          git commit -m "stats: auto-refresh [skip ci]"
+          git commit -m "chore: refresh profile assets [skip ci]"
           git push

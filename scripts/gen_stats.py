@@ -1,33 +1,28 @@
 """
-gen_stats.py — Generate GitHub statistics SVGs.
+gen_stats.py — Unified GitHub Analytics SVGs.
 
-Output files:
-  assets/stats.svg    — total contributions + weekly sparkline
-  assets/streak.svg   — current streak / longest streak
-  assets/langs.svg    — top languages by bytes (horizontal bars)
-  assets/year.svg     — 365-day contribution grid (one char/day)
+Four outputs:
+  stats.svg  — Bento grid: commits/PRs/issues/stars/repos/followers
+  streak.svg — Current streak + longest streak, elegant layout
+  langs.svg  — Language distribution (monochrome, clean bars)
+  year.svg   — 365-day contribution heatmap (accent opacity scale)
 
-Requires ONLY Python standard library.
-Uses GITHUB_TOKEN environment variable (no PAT needed, workflow token works).
+All styled in one coherent visual language.
 """
 
 import sys
-import json
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from collections import defaultdict
-
 sys.path.insert(0, str(Path(__file__).parent))
 from utils import (
-    ASSETS, FONTS, COLORS, RAMP, _esc, font_face,
-    graphql, window_dates, utc_now,
-    label, bar_h, rule, svg_open, svg_close,
+    ASSETS, COLORS, RADIUS,
+    svg_open, svg_close, text_el, rect_el, circle_el, line_el,
+    group_open, group_close, _esc, staggered,
+    graphql, utc_now, window_dates, font_face
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
-# GraphQL query
-# ─────────────────────────────────────────────────────────────────────────────
-
+# ── GraphQL query ──────────────────────────────────────────────────────────────
 QUERY = """
 query($login: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $login) {
@@ -42,12 +37,10 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
     ) {
       totalCount
       nodes {
-        name
         stargazerCount
         forkCount
-        primaryLanguage { name }
-        languages(first: 20, orderBy: {field: SIZE, direction: DESC}) {
-          edges { size node { name color } }
+        languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+          edges { size node { name } }
         }
       }
     }
@@ -55,14 +48,10 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
       totalCommitContributions
       totalPullRequestContributions
       totalIssueContributions
-      totalRepositoryContributions
       contributionCalendar {
         totalContributions
         weeks {
-          contributionDays {
-            date
-            contributionCount
-          }
+          contributionDays { date contributionCount }
         }
       }
     }
@@ -71,17 +60,12 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
 """
 
 
-def fetch_data(login: str) -> dict:
+def fetch(login: str) -> dict:
     from_dt, to_dt = window_dates()
     return graphql(QUERY, {"login": login, "from": from_dt, "to": to_dt})
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Data processing
-# ─────────────────────────────────────────────────────────────────────────────
-
-def extract_days(data: dict) -> list[tuple[str, int]]:
-    """Return [(date_str, count), ...] for every day in the collection window."""
+def extract_days(data: dict) -> list:
     days = []
     for week in data["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]:
         for d in week["contributionDays"]:
@@ -90,30 +74,21 @@ def extract_days(data: dict) -> list[tuple[str, int]]:
     return days
 
 
-def compute_streaks(days: list[tuple[str, int]]) -> dict:
-    """Return current_streak, longest_streak with date ranges."""
-    if not days:
-        return {"current": 0, "current_from": "", "current_to": "",
-                "longest": 0, "longest_from": "", "longest_to": ""}
-
-    cur = 0; cur_from = ""; cur_to = ""
-    best = 0; best_from = ""; best_to = ""
-    streak = 0; s_from = ""
-
+def compute_streaks(days: list) -> dict:
+    cur = best = s_cur = s_best = 0
+    cur_from = cur_to = best_from = best_to = s_from = ""
     for date, count in days:
         if count > 0:
-            if streak == 0:
+            if s_cur == 0:
                 s_from = date
-            streak += 1
-            if streak > best:
-                best = streak
+            s_cur += 1
+            if s_cur > s_best:
+                s_best = s_cur
                 best_from = s_from
                 best_to = date
         else:
-            streak = 0
+            s_cur = 0
             s_from = ""
-
-    # Current streak: count backwards from most recent day
     cur = 0
     for date, count in reversed(days):
         if count > 0:
@@ -123,19 +98,13 @@ def compute_streaks(days: list[tuple[str, int]]) -> dict:
             cur_from = date
         else:
             break
-
     return {
-        "current": cur,
-        "current_from": cur_from,
-        "current_to":   cur_to,
-        "longest":      best,
-        "longest_from": best_from,
-        "longest_to":   best_to,
+        "current": cur, "current_from": cur_from, "current_to": cur_to,
+        "longest": s_best, "longest_from": best_from, "longest_to": best_to,
     }
 
 
-def extract_languages(data: dict) -> list[tuple[str, int]]:
-    """Return [(language, bytes), ...] sorted descending, public repos only."""
+def extract_langs(data: dict) -> list:
     totals: dict[str, int] = defaultdict(int)
     for repo in data["user"]["repositories"]["nodes"]:
         for edge in repo["languages"]["edges"]:
@@ -143,393 +112,275 @@ def extract_languages(data: dict) -> list[tuple[str, int]]:
     return sorted(totals.items(), key=lambda x: -x[1])
 
 
-def weekly_totals(days: list[tuple[str, int]]) -> list[int]:
-    """Group days into ISO weeks; return list of weekly totals."""
+def weekly_totals(days: list) -> list:
     weeks: dict[str, int] = defaultdict(int)
     for date, count in days:
         d = datetime.strptime(date, "%Y-%m-%d")
-        iso_week = d.strftime("%G-W%V")   # ISO year + week
-        weeks[iso_week] += count
+        weeks[d.strftime("%G-W%V")] += count
     return [weeks[k] for k in sorted(weeks)]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SVG: stats.svg  (800 × 130)
-# ─────────────────────────────────────────────────────────────────────────────
-
-def gen_stats(data: dict, days: list[tuple[str, int]]) -> str:
-    W, H = 800, 130
-    cc   = data["user"]["contributionsCollection"]
-    total = cc["contributionCalendar"]["totalContributions"]
-    commits = cc["totalCommitContributions"]
-    prs     = cc["totalPullRequestContributions"]
-    issues  = cc["totalIssueContributions"]
-    repos   = data["user"]["repositories"]["totalCount"]
-    stars   = sum(r["stargazerCount"] for r in data["user"]["repositories"]["nodes"])
-    followers = data["user"]["followers"]["totalCount"]
-
-    # Weekly sparkline
-    weeks = weekly_totals(days)
-    max_w = max(weeks) if weeks else 1
-    # Chart area: x 340–790, y 20–110
-    cx0, cx1, cy0, cy1 = 340, 790, 20, 110
-    bar_area_w = cx1 - cx0
-    bar_area_h = cy1 - cy0
-    n = len(weeks)
-    bar_w = max(1, (bar_area_w - n) // n)  # gap of 1px between bars
-
-    out = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
-        f'<style>{font_face("data")}</style>',
-        f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<g class="animate-in">',
-        # left border accent
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
-    ]
-
-    # ── Left panel: key numbers ──
-    lx = 18
-    # Total contributions — large accent number
-    out.append(
-        f'<text x="{lx}" y="52" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="36" fill="{COLORS["accent"]}" font-weight="700">{total:,}</text>'
-    )
-    out.append(
-        f'<text x="{lx}" y="70" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="11" fill="{COLORS["dim"]}" letter-spacing="0.06em">contributions · past year</text>'
-    )
-
-    # Sub-stats row
-    sub_items = [
-        (f"{commits:,}",  "commits"),
-        (f"{prs}",        "pull requests"),
-        (f"{issues}",     "issues"),
-        (f"{stars}",      "stars"),
-        (f"{repos}",      "repos"),
-        (f"{followers}",  "followers"),
-    ]
-    sy = 100
-    sx = lx
-    for val, lbl in sub_items:
-        out.append(
-            f'<text x="{sx}" y="{sy}" '
-            f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-            f'font-size="10" fill="{COLORS["text"]}">{_esc(val)}</text>'
-        )
-        out.append(
-            f'<text x="{sx}" y="{sy + 12}" '
-            f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-            f'font-size="9" fill="{COLORS["dim"]}">{_esc(lbl)}</text>'
-        )
-        sx += 50
-
-    # Divider
-    out.append(f'<line x1="330" y1="10" x2="330" y2="{H - 10}" stroke="{COLORS["border"]}" stroke-width="1"/>')
-
-    # ── Right panel: weekly sparkline ──
-    out.append(
-        f'<text x="{cx0}" y="15" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">weekly contributions</text>'
-    )
-
-    for i, wk in enumerate(weeks):
-        bx = cx0 + i * (bar_w + 1)
-        if max_w == 0:
-            bh = 0
-        else:
-            bh = int((wk / max_w) * bar_area_h)
-        by = cy1 - bh
-        # Highlight the most recent (last) week
-        fill = COLORS["accent"] if i == len(weeks) - 1 else COLORS["muted"]
-        if bh > 0:
-            out.append(
-                f'<rect x="{bx}" y="{by}" width="{bar_w}" height="{bh}" '
-                f'fill="{fill}" rx="1"/>'
-            )
-
-    # Baseline rule
-    out.append(f'<line x1="{cx0}" y1="{cy1}" x2="{cx1}" y2="{cy1}" stroke="{COLORS["border"]}" stroke-width="1"/>')
-
-    out.append('</g>')
-    out.append('</svg>')
-    return "\n".join(out) + "\n"
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# SVG: streak.svg  (800 × 100)
-# ─────────────────────────────────────────────────────────────────────────────
-
-def fmt_date_range(d1: str, d2: str) -> str:
-    """Format 'Jan 1 – Aug 5' from ISO date strings."""
+def fmt_date(d1: str, d2: str) -> str:
     if not d1:
         return "—"
-    def f(s: str) -> str:
+    def f(s):
         try:
             dt = datetime.strptime(s, "%Y-%m-%d")
             return dt.strftime("%b %-d") if sys.platform != "win32" else dt.strftime("%b %d").lstrip("0")
         except Exception:
             return s
-    if d1 == d2:
-        return f(d1)
-    return f"{f(d1)} – {f(d2)}"
+    return f(d1) if d1 == d2 else f"{f(d1)} – {f(d2)}"
 
 
-def gen_streak(streaks: dict) -> str:
-    W, H = 800, 100
-    out = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
-        f'<style>{font_face("data")}</style>',
-        f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<g class="animate-in">',
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
+# ── stats.svg ─────────────────────────────────────────────────────────────────
+
+def gen_stats(data: dict, days: list) -> str:
+    W, H = 820, 160
+    cc    = data["user"]["contributionsCollection"]
+    total = cc["contributionCalendar"]["totalContributions"]
+    commits  = cc["totalCommitContributions"]
+    prs      = cc["totalPullRequestContributions"]
+    issues   = cc["totalIssueContributions"]
+    repos    = data["user"]["repositories"]["totalCount"]
+    stars    = sum(r["stargazerCount"] for r in data["user"]["repositories"]["nodes"])
+    followers = data["user"]["followers"]["totalCount"]
+
+    weeks  = weekly_totals(days)
+    max_w  = max(weeks) if weeks else 1
+    CX0, CX1, CY0, CY1 = 330, 810, 20, 130
+    bar_area_h = CY1 - CY0
+    n  = len(weeks)
+    bw = max(1, (CX1 - CX0 - n) // n)
+
+    out = svg_open(W, H)
+    out += group_open(cls="a-up")
+
+    # ── Left panel: big numbers ──────────────────────────────
+    lx = 20
+    # Total contributions — oversized anchor number
+    out += text_el(lx, 58, f"{total:,}",
+                   size=40, color=COLORS["text_hi"], weight="700")
+    out += text_el(lx, 78, "contributions · past year",
+                   size=10, color=COLORS["dim"], spacing=0.04)
+
+    # Sub-stats
+    sub = [
+        (f"{commits:,}", "commits"),
+        (f"{prs}",       "pull requests"),
+        (f"{issues}",    "issues"),
+        (f"{stars}",     "stars"),
+        (f"{repos}",     "repos"),
+        (f"{followers}", "followers"),
     ]
-
-    # ── Current streak (left) ──
-    cx = 80
-    cur = streaks["current"]
-    cur_range = fmt_date_range(streaks["current_from"], streaks["current_to"])
-    out += [
-        f'<text x="{cx}" y="52" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="38" fill="{COLORS["accent"]}" font-weight="700" text-anchor="middle">{cur}</text>',
-        f'<text x="{cx}" y="68" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="11" fill="{COLORS["text"]}" text-anchor="middle">day streak</text>',
-        f'<text x="{cx}" y="84" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="9" fill="{COLORS["dim"]}" text-anchor="middle">{_esc(cur_range)}</text>',
-        f'<text x="18" y="20" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">current streak</text>',
-    ]
+    sx = lx
+    for val, lbl in sub:
+        out += text_el(sx, 108, val, size=12, color=COLORS["text"], weight="600")
+        out += text_el(sx, 124, lbl, size=9,  color=COLORS["dim"])
+        sx += 50
 
     # Divider
-    out.append(f'<line x1="400" y1="10" x2="400" y2="{H - 10}" stroke="{COLORS["border"]}" stroke-width="1"/>')
+    out += line_el(320, 14, 320, H - 14, stroke=COLORS["border"])
 
-    # ── Longest streak (right) ──
-    lx = 600
+    # ── Right panel: weekly sparkline ────────────────────────
+    out += text_el(CX0, 14, "weekly activity",
+                   size=9, color=COLORS["muted"], spacing=0.06)
+
+    for i, wk in enumerate(weeks):
+        bx   = CX0 + i * (bw + 1)
+        bh   = int((wk / max_w) * bar_area_h) if max_w else 0
+        by   = CY1 - bh
+        is_last = i == len(weeks) - 1
+        fill = COLORS["accent"] if is_last else COLORS["bg3"]
+        if bh > 0:
+            out += rect_el(bx, by, bw, bh, fill=fill, rx=1)
+
+    # Baseline
+    out += line_el(CX0, CY1, CX1, CY1, stroke=COLORS["border"])
+    out += group_close()
+    out += svg_close()
+    return out
+
+
+# ── streak.svg ────────────────────────────────────────────────────────────────
+
+def gen_streak(streaks: dict) -> str:
+    W, H = 820, 120
+    out = svg_open(W, H)
+
+    # ── Current streak ───────────────────────────────────────
+    out += group_open(cls="a-up", delay=0.0)
+    cx = 110
+    cur = streaks["current"]
+    cur_range = fmt_date(streaks["current_from"], streaks["current_to"])
+
+    # Large number with accent
+    out += text_el(cx, 62, str(cur),
+                   size=44, color=COLORS["text_hi"], weight="700", anchor="middle")
+    out += text_el(cx, 80, "day streak",
+                   size=11, color=COLORS["text_sec"], anchor="middle")
+    out += text_el(cx, 98, cur_range,
+                   size=9, color=COLORS["dim"], anchor="middle")
+    out += text_el(cx, 18, "CURRENT STREAK",
+                   size=9, color=COLORS["accent_hi"], anchor="middle", spacing=0.12)
+    out += group_close()
+
+    # Divider
+    out += line_el(W // 2, 16, W // 2, H - 16, stroke=COLORS["border"])
+
+    # ── Longest streak ───────────────────────────────────────
+    out += group_open(cls="a-up", delay=0.1)
+    lx  = W // 2 + (W // 2) // 2
     lng = streaks["longest"]
-    lng_range = fmt_date_range(streaks["longest_from"], streaks["longest_to"])
-    out += [
-        f'<text x="{lx}" y="52" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="38" fill="{COLORS["accent2"]}" font-weight="700" text-anchor="middle">{lng}</text>',
-        f'<text x="{lx}" y="68" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="11" fill="{COLORS["text"]}" text-anchor="middle">longest streak</text>',
-        f'<text x="{lx}" y="84" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="9" fill="{COLORS["dim"]}" text-anchor="middle">{_esc(lng_range)}</text>',
-        f'<text x="418" y="20" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">all-time best</text>',
-    ]
+    lng_range = fmt_date(streaks["longest_from"], streaks["longest_to"])
 
-    out.append('</g>')
-    out.append('</svg>')
-    return "\n".join(out) + "\n"
+    out += text_el(lx, 62, str(lng),
+                   size=44, color=COLORS["text_hi"], weight="700", anchor="middle")
+    out += text_el(lx, 80, "longest streak",
+                   size=11, color=COLORS["text_sec"], anchor="middle")
+    out += text_el(lx, 98, lng_range,
+                   size=9, color=COLORS["dim"], anchor="middle")
+    out += text_el(lx, 18, "BEST EVER",
+                   size=9, color=COLORS["dim"], anchor="middle", spacing=0.12)
+    out += group_close()
+
+    out += svg_close()
+    return out
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SVG: langs.svg  (800 × 200)
-# ─────────────────────────────────────────────────────────────────────────────
+# ── langs.svg ─────────────────────────────────────────────────────────────────
 
-# Premium monochrome shades for languages
-MONO_SHADES = [
-    "#ffffff", "#e4e4e7", "#a1a1aa", "#71717a", "#52525b", "#3f3f46", "#27272a", "#18181b"
-]
-
-def lang_color(index: int) -> str:
-    return MONO_SHADES[index % len(MONO_SHADES)]
+# Monochrome descending shades for languages
+LANG_MONO = ["#FAFAFA", "#D4D4D8", "#A1A1AA", "#71717A", "#52525B", "#3F3F46", "#27272A", "#18181B"]
 
 
-def gen_langs(langs: list[tuple[str, int]]) -> str:
-    W, H = 800, 200
-    top  = langs[:8]  # top 8 languages
-    total_bytes = sum(b for _, b in top) or 1
+def gen_langs(langs: list) -> str:
+    W, H = 820, 220
+    top = langs[:8]
+    total = sum(b for _, b in top) or 1
 
-    out = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
-        f'<style>{font_face("data")}</style>',
-        f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<g class="animate-in">',
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
-        f'<text x="18" y="20" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">top languages · by bytes</text>',
-    ]
+    out = svg_open(W, H)
+    out += group_open(cls="a-up")
 
-    bar_x0    = 160
-    bar_x_max = 620
-    row_h     = 22
-    start_y   = 32
+    out += text_el(20, 18, "LANGUAGE DISTRIBUTION",
+                   size=9, color=COLORS["dim"], weight="600", spacing=0.12)
+
+    bar_x0  = 180
+    bar_xmax = 650
+    row_h   = 24
+    start_y = 36
 
     for i, (name, size) in enumerate(top):
-        pct   = size / total_bytes
-        bar_w = int(pct * (bar_x_max - bar_x0))
+        pct   = size / total
+        bw    = int(pct * (bar_xmax - bar_x0))
         y     = start_y + i * row_h
-        col   = lang_color(i)
+        shade = LANG_MONO[i % len(LANG_MONO)]
         pct_s = f"{pct * 100:.1f}%"
 
         # Language name
-        out.append(
-            f'<text x="18" y="{y + 13}" '
-            f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-            f'font-size="11" fill="{COLORS["text"]}">{_esc(name)}</text>'
-        )
-        # Track background
-        out.append(
-            f'<rect x="{bar_x0}" y="{y + 4}" width="{bar_x_max - bar_x0}" height="10" '
-            f'fill="{COLORS["bg3"]}" rx="2"/>'
-        )
-        # Filled bar
-        if bar_w > 0:
-            out.append(
-                f'<rect x="{bar_x0}" y="{y + 4}" width="{bar_w}" height="10" '
-                f'fill="{col}" rx="2" opacity="0.85"/>'
+        out += text_el(20, y + 13, name, size=11, color=COLORS["text"])
+        # Track
+        out += rect_el(bar_x0, y + 5, bar_xmax - bar_x0, 10,
+                       fill=COLORS["bg3"], rx=3)
+        # Fill with animate
+        if bw > 0:
+            delay = staggered(i, 0.1, 0.05)
+            out += (
+                f'<rect x="{bar_x0}" y="{y + 5}" width="{bw}" height="10" '
+                f'rx="3" fill="{shade}" '
+                f'style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) {delay:.2f}s forwards;'
+                f'transform:scaleX(0);transform-origin:{bar_x0}px center;"/>\n'
             )
-        # Percentage label
-        out.append(
-            f'<text x="{bar_x_max + 8}" y="{y + 13}" '
-            f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-            f'font-size="10" fill="{COLORS["dim"]}">{_esc(pct_s)}</text>'
-        )
+        # Percentage
+        out += text_el(bar_xmax + 10, y + 13, pct_s,
+                       size=10, color=COLORS["dim"])
 
-    # Stacked minibar across bottom (full-width color breakdown)
-    mini_y  = H - 14
-    mini_h  = 4
-    cursor  = 18
-    mini_w  = W - 36
+    # Mini stacked bar
+    mini_y, mini_h = H - 16, 4
+    cursor, mini_w = 20, W - 40
     for i, (name, size) in enumerate(top):
-        seg_w = int((size / total_bytes) * mini_w)
-        if seg_w > 0:
-            out.append(
-                f'<rect x="{cursor}" y="{mini_y}" width="{seg_w}" height="{mini_h}" '
-                f'fill="{lang_color(i)}" opacity="0.9"/>'
-            )
-            cursor += seg_w
+        sw = int((size / total) * mini_w)
+        if sw > 0:
+            out += rect_el(cursor, mini_y, sw, mini_h,
+                           fill=LANG_MONO[i % len(LANG_MONO)], rx=0)
+            cursor += sw
 
-    out.append('</g>')
-    out.append('</svg>')
-    return "\n".join(out) + "\n"
+    out += group_close()
+    out += svg_close()
+    return out
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SVG: year.svg  (800 × 120)
-# ─────────────────────────────────────────────────────────────────────────────
+# ── year.svg ──────────────────────────────────────────────────────────────────
 
-def gen_year(days: list[tuple[str, int]]) -> str:
-    """365-day contribution grid using the portrait ramp."""
-    W, H = 800, 120
+def gen_year(days: list) -> str:
+    W, H = 820, 130
 
-    # Pad to exactly 365 days
     today = utc_now().date()
-    date_to_count: dict[str, int] = dict(days)
+    dtc: dict[str, int] = dict(days)
     all_days = []
     for i in range(364, -1, -1):
-        d = today - timedelta(days=i)
+        d  = today - timedelta(days=i)
         ds = d.strftime("%Y-%m-%d")
-        all_days.append((ds, date_to_count.get(ds, 0)))
+        all_days.append((ds, dtc.get(ds, 0)))
 
     max_c = max(c for _, c in all_days) or 1
 
-    # Grid layout: 53 weeks × 7 days
-    cell_w = 13
-    cell_h = 13
-    gap    = 2
-    grid_x0 = 18
-    grid_y0 = 30
+    cell_w, cell_h, gap = 12, 12, 2
+    grid_x0, grid_y0   = 20, 34
 
-    out = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
-        f'<style>{font_face("data")}</style>',
-        f'<rect width="{W}" height="{H}" fill="{COLORS["bg"]}"/>',
-        f'<g class="animate-in">',
-        f'<rect x="0" y="0" width="2" height="{H}" fill="{COLORS["border"]}" rx="0"/>',
-        f'<text x="18" y="20" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="9" fill="{COLORS["dim"]}" letter-spacing="0.06em">'
-        f'contribution activity · {all_days[0][0][:4]}–{all_days[-1][0][:4]}'
-        f'</text>',
-    ]
+    out = svg_open(W, H)
+    out += group_open(cls="a-in")
 
-    # Day-of-week labels (Mon, Wed, Fri)
-    dow_labels = {0: "M", 2: "W", 4: "F"}
-    for dow, lbl in dow_labels.items():
-        ly = grid_y0 + dow * (cell_h + gap) + cell_h - 2
-        out.append(
-            f'<text x="8" y="{ly}" '
-            f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-            f'font-size="8" fill="{COLORS["muted"]}" text-anchor="middle">{lbl}</text>'
-        )
+    out += text_el(20, 20, "CONTRIBUTION ACTIVITY  ·  365 DAYS",
+                   size=9, color=COLORS["dim"], weight="600", spacing=0.10)
 
-    # Fill cells
+    # Day-of-week labels
+    for dow, lbl in {0: "M", 2: "W", 4: "F"}.items():
+        ly = grid_y0 + dow * (cell_h + gap) + cell_h - 1
+        out += text_el(8, ly, lbl, size=8, color=COLORS["muted"], anchor="middle")
+
     for idx, (date, count) in enumerate(all_days):
-        d    = datetime.strptime(date, "%Y-%m-%d")
-        dow  = d.weekday()         # 0=Mon
+        d   = datetime.strptime(date, "%Y-%m-%d")
+        dow = d.weekday()
         week = idx // 7
-        cx   = grid_x0 + week * (cell_w + gap)
-        cy   = grid_y0 + dow  * (cell_h + gap)
+        cx  = grid_x0 + week * (cell_w + gap)
+        cy  = grid_y0 + dow  * (cell_h + gap)
 
         if count == 0:
-            fill = COLORS["bg3"]
+            out += rect_el(cx, cy, cell_w, cell_h, fill=COLORS["bg3"], rx=2)
         else:
             intensity = min(count / max_c, 1.0)
-            # Map 0→1 to accent with varying opacity
-            fill = COLORS["accent"]
-            alpha = int(30 + intensity * 225)
-            # Use opacity instead of rgba (SVG compatible)
-            opacity = f'{0.12 + intensity * 0.88:.2f}'
-            out.append(
-                f'<rect x="{cx}" y="{cy}" width="{cell_w}" height="{cell_h}" '
-                f'fill="{COLORS["accent"]}" opacity="{opacity}" rx="2"/>'
-            )
-            continue
+            opacity   = round(0.15 + intensity * 0.85, 2)
+            out += rect_el(cx, cy, cell_w, cell_h,
+                           fill=COLORS["accent"], rx=2, opacity=opacity)
 
-        out.append(
-            f'<rect x="{cx}" y="{cy}" width="{cell_w}" height="{cell_h}" '
-            f'fill="{fill}" rx="2"/>'
-        )
-
-    # Month labels along top
+    # Month labels
     prev_month = None
     for idx, (date, _) in enumerate(all_days):
         d = datetime.strptime(date, "%Y-%m-%d")
         if d.day == 1 or (d.month != prev_month and idx % 7 == 0):
             week = idx // 7
             mx   = grid_x0 + week * (cell_w + gap)
-            out.append(
-                f'<text x="{mx}" y="{grid_y0 - 4}" '
-                f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-                f'font-size="8" fill="{COLORS["muted"]}">{d.strftime("%b")}</text>'
-            )
+            out += text_el(mx, grid_y0 - 6, d.strftime("%b"),
+                           size=8, color=COLORS["muted"])
             prev_month = d.month
 
-    out.append('</g>')
-    out.append('</svg>')
-    return "\n".join(out) + "\n"
+    out += group_close()
+    out += svg_close()
+    return out
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────────────────────
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 def run() -> None:
     import os
     login = os.environ.get("GH_LOGIN", "Fawadullah15")
     ASSETS.mkdir(exist_ok=True)
 
-    print(f"  Fetching data for @{login}...")
-    data  = fetch_data(login)
+    print(f"  Fetching data for @{login}…")
+    data  = fetch(login)
     days  = extract_days(data)
     stk   = compute_streaks(days)
-    langs = extract_languages(data)
-
-    print(f"  {len(days)} days · {len(langs)} languages")
-    print(f"  Streak: current={stk['current']} longest={stk['longest']}")
+    langs = extract_langs(data)
 
     svgs = {
         "stats.svg":  gen_stats(data, days),
@@ -541,7 +392,7 @@ def run() -> None:
     for name, content in svgs.items():
         out = ASSETS / name
         out.write_text(content, encoding="utf-8")
-        print(f"  Wrote {name} ({len(content):,} bytes)")
+        print(f"  wrote {name}  ({len(content):,} bytes)")
 
     print("Done.")
 

@@ -26,7 +26,7 @@
 <rect width="820" height="36" fill="#09090B"/>
 <g class="a-right">
   <rect x="0" y="8" width="2" height="20" rx="1" fill="url(#accV)"/>
-  <text x="12" y="22" font-size="10" fill="#818CF8"   font-weight="600" letter-spacing="0.18em">GITHUB ANALYTICS</text>
+  <text x="12" y="22" font-size="10" fill="#818CF8"   font-weight="600" letter-spacing="0.18em">CURRENTLY BUILDING</text>
 </g>
-<line x1="160" y1="18" x2="819" y2="18" stroke="url(#ruleF)" stroke-width="1" class="a-grow"/>
+<line x1="176" y1="18" x2="819" y2="18" stroke="url(#ruleF)" stroke-width="1" class="a-grow"/>
 </svg>

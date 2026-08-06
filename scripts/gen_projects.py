@@ -1,260 +1,234 @@
 """
-gen_projects.py — Generate project cards SVG.
+gen_projects.py — Premium product-card SVGs for featured repositories.
 
-Reads public repos from GitHub REST API, selects the best ones, and draws
-a 2×2 grid of project cards.
-
-Output: assets/projects.svg  (800 × 320)
-
-Standard library only.
+Auto-fetches public repos, ranks them by impact score, and generates
+Apple-style product cards: typographic cover, description, tech tags, metrics.
 """
 
-import sys
-import os
+import sys, os
 from pathlib import Path
-from datetime import datetime
-
+from datetime import datetime, timezone
 sys.path.insert(0, str(Path(__file__).parent))
-from utils import ASSETS, COLORS, _esc, font_face, rest_get
+from utils import (
+    ASSETS, COLORS, RADIUS,
+    svg_open, svg_close, text_el, rect_el, circle_el, line_el,
+    group_open, group_close, _esc, staggered, rest_get
+)
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Fetch & select
-# ─────────────────────────────────────────────────────────────────────────────
+W = 820
 
-# Hand-curated ordering: repos that best represent the work
+# Hand-curated priority for the showcase (auto-fallback if not found)
 PRIORITY = [
     "advance-innovators-school",
-    "deepfakelive",
-    "eden-school-system",
-    "fawadullah-monkeytalkie",
     "shop-management",
     "pdf-to-excel",
     "ydp-website",
+    "deepfakelive",
+    "fawadullah-monkeytalkie",
+    "eden-school-system",
     "fawadullah-portfolio",
 ]
 
+# Monochrome accent shades for language dots (premium, not rainbow)
+LANG_SHADES = [
+    COLORS["accent_hi"], COLORS["text_hi"], COLORS["text_sec"],
+    COLORS["dim"],       COLORS["muted"],   COLORS["border2"],
+]
 
-def select_repos(repos: list[dict], n: int = 4) -> list[dict]:
-    """
-    Select the best n repos to showcase.
-    Priority: PRIORITY list first, then stars desc, then recency.
-    Skip forks and empty repos.
-    """
-    indexed: dict[str, dict] = {r["name"].lower(): r for r in repos}
-    chosen = []
 
+def score(repo: dict) -> float:
+    stars  = repo.get("stargazers_count", 0)
+    forks  = repo.get("forks_count", 0)
+    pushed = repo.get("pushed_at", "")
+    s      = stars * 10 + forks * 5
+    if pushed:
+        try:
+            dt      = datetime.strptime(pushed[:10], "%Y-%m-%d")
+            days    = (datetime.utcnow() - dt).days
+            s      += max(0, 60 - days)
+        except Exception:
+            pass
+    return s
+
+
+def select_repos(repos: list, n: int = 4) -> list:
+    indexed = {r["name"].lower(): r for r in repos if not r.get("fork")}
+    chosen  = []
     for name in PRIORITY:
-        if name.lower() in indexed:
-            r = indexed[name.lower()]
-            if not r["fork"]:
-                chosen.append(r)
+        r = indexed.get(name.lower())
+        if r:
+            chosen.append(r)
         if len(chosen) >= n:
             break
-
     if len(chosen) < n:
-        # Fill remaining from starred/recent
-        remaining = sorted(
-            [r for r in repos if r["name"].lower() not in {c["name"].lower() for c in chosen}
-             and not r["fork"]],
-            key=lambda r: (-r["stargazers_count"], r["pushed_at"]),
-            reverse=False,
+        rest = sorted(
+            [r for r in repos if not r.get("fork") and r["name"].lower() not in
+             {c["name"].lower() for c in chosen}],
+            key=score, reverse=True
         )
-        chosen.extend(remaining[:n - len(chosen)])
-
+        chosen.extend(rest[:n - len(chosen)])
     return chosen[:n]
-
-
-def get_lang_display(repo: dict) -> str:
-    lang = repo.get("language") or "—"
-    return lang
 
 
 def fmt_date(iso: str | None) -> str:
     if not iso:
         return "—"
     try:
-        d = datetime.strptime(iso[:10], "%Y-%m-%d")
-        return d.strftime("%b %Y")
+        return datetime.strptime(iso[:10], "%Y-%m-%d").strftime("%b %Y")
     except Exception:
         return iso[:10]
 
 
-def truncate(s: str, n: int) -> str:
-    if not s:
-        return "no description"
-    return s if len(s) <= n else s[:n - 1] + "…"
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Language colors (matches gen_stats.py)
-# ─────────────────────────────────────────────────────────────────────────────
-
-MONO_SHADES = [
-    "#ffffff", "#e4e4e7", "#a1a1aa", "#71717a", "#52525b", "#3f3f46", "#27272a", "#18181b"
-]
-
-def lang_color(name: str) -> str:
-    # Hash the name to pick a consistent monochrome shade
-    idx = sum(ord(c) for c in name) % len(MONO_SHADES)
-    return MONO_SHADES[idx]
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# SVG card builder
-# ─────────────────────────────────────────────────────────────────────────────
-
-W, H    = 800, 320
-CARD_W  = 370
-CARD_H  = 134
-GAP     = 20
-MARGIN  = 20
-
-
-def card_svg(repo: dict, cx: int, cy: int) -> list[str]:
-    """Generate SVG elements for one project card at position (cx, cy)."""
-    name  = repo["name"]
-    desc  = truncate(repo.get("description") or "", 72)
-    lang  = get_lang_display(repo)
-    stars = repo.get("stargazers_count", 0)
-    forks = repo.get("forks_count", 0)
-    pushed = fmt_date(repo.get("pushed_at"))
-    url   = repo.get("html_url", "")
-    lcolor = lang_color(lang)
-
-    lines = []
-    
-    # Staggered animation delay based on position
-    delay = 0.1 * (cx // CARD_W + cy // CARD_H)
-    lines.append(f'<g class="animate-in" style="animation-delay: {delay}s">')
-    
-    # Card background (Linear style: flat, clean border, no heavy top bar)
-    lines.append(
-        f'<rect x="{cx}" y="{cy}" width="{CARD_W}" height="{CARD_H}" '
-        f'fill="{COLORS["bg2"]}" rx="6" '
-        f'stroke="{COLORS["border"]}" stroke-width="1"/>'
-    )
-
-    px = cx + 16
-    # Repo name
-    lines.append(
-        f'<text x="{px}" y="{cy + 22}" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="13" fill="{COLORS["text_hi"]}" font-weight="600">'
-        f'{_esc(name)}</text>'
-    )
-
-    # Description (may wrap — split into max 2 lines of 42 chars)
-    words = desc.split()
-    lines_text: list[str] = [""]
-    for word in words:
-        if len(lines_text[-1]) + len(word) + 1 <= 44:
-            lines_text[-1] = (lines_text[-1] + " " + word).strip()
+def wrap_text(s: str, max_len: int = 85) -> list[str]:
+    words, lines, line = s.split(), [], ""
+    for w in words:
+        if len(line) + len(w) + 1 <= max_len:
+            line = (line + " " + w).strip()
         else:
-            if len(lines_text) < 2:
-                lines_text.append(word)
-            else:
-                lines_text[-1] = lines_text[-1][:-1] + "…"
-                break
-
-    for li, line_text in enumerate(lines_text[:2]):
-        lines.append(
-            f'<text x="{px}" y="{cy + 40 + li * 16}" '
-            f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-            f'font-size="10.5" fill="{COLORS["dim"]}">{_esc(line_text)}</text>'
-        )
-
-    # Bottom row: language dot + name
-    by = cy + CARD_H - 16
-    lines.append(
-        f'<circle cx="{px + 4}" cy="{by}" r="4" fill="{lcolor}"/>'
-    )
-    lines.append(
-        f'<text x="{px + 14}" y="{by + 4}" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="10" fill="{COLORS["dim"]}">{_esc(lang)}</text>'
-    )
-
-    # Stars
-    star_x = px + 90
-    lines.append(
-        f'<text x="{star_x}" y="{by + 4}" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="10" fill="{COLORS["dim"]}">★ {stars}</text>'
-    )
-
-    # Forks
-    fork_x = star_x + 50
-    lines.append(
-        f'<text x="{fork_x}" y="{by + 4}" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="10" fill="{COLORS["dim"]}">⑂ {forks}</text>'
-    )
-
-    # Last pushed
-    pushed_x = cx + CARD_W - 16
-    lines.append(
-        f'<text x="{pushed_x}" y="{by + 4}" '
-        f'font-family=\'&quot;JB&quot;,&quot;JetBrains Mono&quot;,&quot;Courier New&quot;,Courier,monospace\' '
-        f'font-size="9" fill="{COLORS["muted"]}" text-anchor="end">{_esc(pushed)}</text>'
-    )
-
-    lines.append('</g>')
+            if line:
+                lines.append(line)
+            line = w
+    if line:
+        lines.append(line)
     return lines
 
 
-def gen_projects(repos: list[dict]) -> str:
+# ── Card layout ───────────────────────────────────────────────────────────────
+COVER_H = 80
+META_H  = 140
+CARD_H  = COVER_H + META_H
+CARD_GAP = 16
+
+
+def make_cover(repo: dict, x: int, y: int, w: int) -> str:
+    """Typographic cover — looks like an editorial magazine cover."""
+    name = repo["name"].upper().replace("-", " ")
+    lang = (repo.get("primaryLanguage") or {}).get("name", "")
+
+    out = ""
+    # Cover background with subtle gradient
+    out += (
+        f'<defs>'
+        f'  <linearGradient id="cov{x}" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">'
+        f'    <stop offset="0%" stop-color="{COLORS["bg3"]}"/>'
+        f'    <stop offset="100%" stop-color="{COLORS["bg2"]}"/>'
+        f'  </linearGradient>'
+        f'</defs>'
+    )
+    out += rect_el(x, y, w, COVER_H, fill=f"url(#cov{x})", rx=0)
+
+    # Large typographic name in the cover area
+    name_size = 22 if len(name) < 18 else (16 if len(name) < 28 else 13)
+    out += text_el(x + 20, y + COVER_H // 2 + name_size // 3,
+                   name, size=name_size,
+                   color=COLORS["border2"], weight="800", spacing=0.06)
+
+    # Language dot in cover
+    if lang:
+        out += circle_el(x + w - 24, y + COVER_H - 18, 5, fill=COLORS["accent"], opacity=0.6)
+        out += text_el(x + w - 16, y + COVER_H - 14, lang,
+                       size=9, color=COLORS["dim"])
+
+    # Accent line at bottom of cover
+    out += rect_el(x, y + COVER_H - 2, w, 2, fill=COLORS["accent"], rx=0, opacity=0.3)
+    return out
+
+
+def card_svg(repo: dict, cx: int, cy: int, cw: int) -> str:
+    name   = repo.get("name", "unknown")
+    desc   = repo.get("description") or "No description."
+    stars  = repo.get("stargazers_count", 0)
+    forks  = repo.get("forks_count", 0)
+    pushed = fmt_date(repo.get("pushed_at"))
+    url    = repo.get("html_url", "#")
+
+    out = group_open(cls="a-up")
+
+    # Card shell
+    out += rect_el(cx, cy, cw, CARD_H, fill=COLORS["bg2"],
+                   rx=RADIUS["lg"], stroke=COLORS["border"], sw=1)
+
+    # Cover
+    out += make_cover(repo, cx, cy, cw)
+
+    # Description area
+    meta_y = cy + COVER_H + 16
+    out += text_el(cx + 16, meta_y, name,
+                   size=13, color=COLORS["text_hi"], weight="600")
+
+    desc_lines = wrap_text(desc, max_len=40 if cw < 420 else 82)
+    for li, dl in enumerate(desc_lines[:2]):
+        out += text_el(cx + 16, meta_y + 22 + li * 16,
+                       dl, size=11, color=COLORS["text_sec"])
+
+    # Metrics footer
+    fy = cy + CARD_H - 20
+    out += text_el(cx + 16, fy, f"★ {stars}",
+                   size=10, color=COLORS["text_sec"])
+    out += text_el(cx + 60, fy, f"⑂ {forks}",
+                   size=10, color=COLORS["dim"])
+    out += text_el(cx + cw - 16, fy, pushed,
+                   size=9, color=COLORS["muted"], anchor="end")
+
+    out += group_close()
+    return out
+
+
+def gen_projects(repos: list) -> str:
     selected = select_repos(repos, n=4)
 
-    # 2×2 layout positions
+    # 2-column × 2-row grid
+    COL_GAP = 16
+    COL_W   = (W - COL_GAP) // 2
+    total_h = CARD_H * 2 + CARD_GAP + 10
+
+    out = svg_open(W, total_h)
+
     positions = [
-        (MARGIN,                   20),
-        (MARGIN + CARD_W + GAP,    20),
-        (MARGIN,                   20 + CARD_H + GAP),
-        (MARGIN + CARD_W + GAP,    20 + CARD_H + GAP),
-    ]
-
-    svg_h = 20 + CARD_H * 2 + GAP + 16
-
-    out = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{svg_h}" viewBox="0 0 {W} {svg_h}">',
-        f'<style>{font_face("data")}',
-        f'@keyframes fadeUp {{',
-        f'  from {{ opacity: 0; transform: translateY(4px); }}',
-        f'  to {{ opacity: 1; transform: translateY(0); }}',
-        f'}}',
-        f'g.animate-in {{ animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }}',
-        f'</style>',
-        f'<rect width="{W}" height="{svg_h}" fill="{COLORS["bg"]}"/>',
-        f'<rect x="0" y="0" width="2" height="{svg_h}" fill="{COLORS["border"]}" rx="0"/>',
+        (0,              0),
+        (COL_W + COL_GAP, 0),
+        (0,              CARD_H + CARD_GAP),
+        (COL_W + COL_GAP, CARD_H + CARD_GAP),
     ]
 
     for i, repo in enumerate(selected):
         cx, cy = positions[i]
-        out.extend(card_svg(repo, cx, cy))
+        out += group_open(cls="a-up", delay=staggered(i, 0.0, 0.1))
+        out += card_svg(repo, cx, cy, COL_W).replace(
+            group_open(cls="a-up"), ""
+        ).replace(group_close(), "", 1)
+        out += group_close()
 
-    out.append('</svg>')
-    return "\n".join(out) + "\n"
+    out += svg_close()
+    return out
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────────────────────
+# ── Placeholder (offline / no token) ──────────────────────────────────────────
+PLACEHOLDER_REPOS = [
+    {"name": "advance-innovators-school", "description": "Full-stack school management platform with AI features.", "stargazers_count": 5, "forks_count": 1, "pushed_at": "2024-06-01", "html_url": "#", "primaryLanguage": {"name": "Python"}, "fork": False},
+    {"name": "shop-management",           "description": "Point-of-sale & inventory system built with React + FastAPI.", "stargazers_count": 8, "forks_count": 2, "pushed_at": "2024-07-12", "html_url": "#", "primaryLanguage": {"name": "TypeScript"}, "fork": False},
+    {"name": "pdf-to-excel",              "description": "AI-powered PDF extraction pipeline exporting structured data.", "stargazers_count": 3, "forks_count": 0, "pushed_at": "2024-04-22", "html_url": "#", "primaryLanguage": {"name": "Python"}, "fork": False},
+    {"name": "ydp-website",               "description": "Production-grade organisation website with CMS.", "stargazers_count": 2, "forks_count": 0, "pushed_at": "2024-03-15", "html_url": "#", "primaryLanguage": {"name": "HTML"}, "fork": False},
+]
+
 
 def run() -> None:
     login = os.environ.get("GH_LOGIN", "Fawadullah15")
     ASSETS.mkdir(exist_ok=True)
 
-    print(f"  Fetching repos for @{login}...")
-    repos = rest_get(f"/users/{login}/repos?per_page=100&type=public")
-    if not isinstance(repos, list):
-        raise RuntimeError(f"Unexpected API response: {repos}")
-
-    print(f"  Found {len(repos)} public repos.")
+    try:
+        repos = rest_get(f"/users/{login}/repos?per_page=100&type=public")
+        if not isinstance(repos, list):
+            raise ValueError("Unexpected API response")
+        print(f"  {len(repos)} public repos fetched.")
+    except Exception as e:
+        print(f"  API unavailable ({e}) — using placeholder data.")
+        repos = PLACEHOLDER_REPOS
 
     svg = gen_projects(repos)
     out = ASSETS / "projects.svg"
     out.write_text(svg, encoding="utf-8")
-    print(f"  Wrote {out} ({len(svg):,} bytes)")
+    print(f"  wrote {out.name}  ({len(svg):,} bytes)")
     print("Done.")
 
 
