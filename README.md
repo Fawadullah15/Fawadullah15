@@ -1,119 +1,188 @@
+<!--
+  Fawadullah Imraj — GitHub Profile README
+  ─────────────────────────────────────
+  Digital identity system.
+  Generated locally via Python inside GitHub Actions.
+  Zero external APIs. Monochrome aesthetic.
+-->
+
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero.svg">
-  <img src="assets/hero.svg" width="800" alt="Fawadullah Imraj - AI Engineer & Full Stack Developer">
-</picture>
+<table>
+<tr>
+<td width="460" valign="top" align="left">
+
+<img src="assets/portrait.svg" width="460" alt="ASCII portrait — Fawadullah Imraj">
+
+</td>
+<td valign="middle" align="left">
+
+<br>
+
+<samp>fawadullah imraj</samp>
+
+<br><br>
+
+<blockquote>
+BS Artificial Intelligence<br>
+University of Peshawar, Pakistan<br>
+<br>
+Crafting intelligent systems.<br>
+Merging AI research with production-grade engineering.
+</blockquote>
+
+<br>
+
+<samp>
+— AI Engineer<br>
+— Full Stack Developer<br>
+— FastAPI · React · Python<br>
+— Open to collaborate
+</samp>
+
+<br><br>
+
+<samp>
+currently building<br>
+&nbsp;&nbsp;AI agents · LangChain · LangGraph · MCP
+</samp>
+
+</td>
+</tr>
+</table>
 
 </div>
+
+<br>
 
 ---
 
-<br>
-
-### Current Mission
-> *Crafting intelligent systems. Merging AI research with production-grade engineering.*
-
-Working on full-stack multi-agent AI systems, sophisticated data extraction pipelines, and premium digital products from Peshawar, Pakistan.
+<img src="assets/hd-about.svg" width="800" alt="about">
 
 <br>
 
-<div align="center">
+<blockquote>
+I build production systems — intelligent APIs, clean frontends, and AI pipelines.<br>
+Currently pursuing a BS in Artificial Intelligence at the University of Peshawar.<br>
+My goal is to ship high-quality AI SaaS products and contribute to open source infrastructure.
+</blockquote>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/philosophy.svg">
-  <img src="assets/philosophy.svg" width="800" alt="Engineering Philosophy">
-</picture>
-
-</div>
+Working at <samp>Monkey Doo</samp> while pursuing my degree.<br>
+Long-term trajectory: AI engineer role in Japan.
 
 <br>
 
 ---
 
+<img src="assets/hd-tech.svg" width="800" alt="tech stack">
+
 <br>
 
-### Featured Products
-Selected projects representing peak engineering and design.
+<samp>
+languages &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python · JavaScript · TypeScript<br>
+backend &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FastAPI · REST · SQLite · Docker<br>
+frontend &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; React · Vite · Tailwind CSS<br>
+ai / ml &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LangChain · LangGraph · MCP · LLMs<br>
+tooling &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git · GitHub Actions · Linux
+</samp>
 
-<div align="center">
+<br>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/products.svg">
-  <img src="assets/products.svg" width="800" alt="Featured Products">
-</picture>
+---
 
-</div>
+<img src="assets/hd-focus.svg" width="800" alt="current focus">
+
+<br>
+
+<samp>
+→ &nbsp;building multi-agent AI systems with LangGraph<br>
+→ &nbsp;deepening FastAPI architecture and async patterns<br>
+→ &nbsp;contributing to open source Python and AI tooling
+</samp>
+
+<br>
+
+---
+
+<img src="assets/hd-projects.svg" width="800" alt="projects">
+
+<br>
+
+<img src="assets/projects.svg" width="800" alt="selected projects">
+
+<br>
 
 <details>
-<summary><samp>view complete repository archive →</samp></summary>
+<summary><samp>view all repositories →</samp></summary>
 <br>
-Full project index available at <a href="https://github.com/Fawadullah15?tab=repositories">github.com/Fawadullah15</a>
+
+Full project index at <a href="https://github.com/Fawadullah15?tab=repositories">github.com/Fawadullah15</a>
+
 </details>
 
 <br>
 
 ---
 
-<br>
-
-<div align="center">
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/timeline.svg">
-  <img src="assets/timeline.svg" width="800" alt="Experience Timeline">
-</picture>
-
-</div>
+<img src="assets/hd-stats.svg" width="800" alt="github statistics">
 
 <br>
 
----
+<img src="assets/stats.svg" width="800" alt="contribution statistics">
 
 <br>
 
-<div align="center">
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/dashboard.svg">
-  <img src="assets/dashboard.svg" width="800" alt="GitHub Analytics Dashboard">
-</picture>
-
-</div>
+<img src="assets/streak.svg" width="800" alt="contribution streak">
 
 <br>
 
-<div align="center">
+<table>
+<tr>
+<td width="395" valign="top">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Fawadullah15/Fawadullah15/main/assets/year.svg">
-  <img src="https://raw.githubusercontent.com/Fawadullah15/Fawadullah15/main/assets/year.svg" width="800" alt="Activity">
-</picture>
-<br>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Fawadullah15/Fawadullah15/main/assets/streak.svg">
-  <img src="https://raw.githubusercontent.com/Fawadullah15/Fawadullah15/main/assets/streak.svg" width="800" alt="Streak">
-</picture>
+<img src="assets/langs.svg" width="395" alt="top languages">
 
-</div>
+</td>
+<td width="395" valign="top">
+
+<img src="assets/year.svg" width="395" alt="contribution year grid">
+
+</td>
+</tr>
+</table>
 
 <br>
 
 ---
 
+<img src="assets/hd-activity.svg" width="800" alt="contribution activity">
+
 <br>
 
-### Contact & Connect
+<samp>
+all statistics are generated by Python scripts running inside<br>
+GitHub Actions · refreshed daily · zero third-party services
+</samp>
 
-<p align="left">
-  <a href="https://github.com/Fawadullah15">GitHub</a> · 
-  <a href="mailto:fawadullah9911@gmail.com">Email</a> · 
-  <a href="https://linkedin.com">LinkedIn</a>
-</p>
+<br>
+
+---
+
+<img src="assets/hd-connect.svg" width="800" alt="connect">
+
+<br>
+
+<samp>
+github &nbsp;&nbsp;&nbsp; github.com/Fawadullah15<br>
+email &nbsp;&nbsp;&nbsp;&nbsp; fawadullah9911@gmail.com<br>
+location &nbsp; Pakistan · open to remote
+</samp>
 
 <br>
 
 <sub>
-Designed in Pakistan. Built with Python & GitHub Actions. <br>
-Generated automatically. Do not edit directly.
+profile generated by <a href="scripts/">scripts/</a> ·
+updated daily by <a href=".github/workflows/refresh.yml">github actions</a>
 </sub>
+
+<br>

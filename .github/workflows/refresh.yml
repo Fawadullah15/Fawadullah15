@@ -31,24 +31,23 @@ jobs:
 
       # gen_stats.py and gen_projects.py are stdlib-only — no pip install needed.
 
-      - name: Generate SVGs
-        run: |
-          python3 scripts/gen_hero.py
-          python3 scripts/gen_philosophy.py
-          python3 scripts/gen_products.py
-          python3 scripts/gen_dashboard.py
-          python3 scripts/gen_timeline.py
+      - name: Generate stats SVGs
+        run: python3 scripts/gen_stats.py
+
+      - name: Generate project cards SVG
+        run: python3 scripts/gen_projects.py
 
       - name: Commit if changed
         run: |
-          git add assets/*.svg
-          
-          if [ -z "$(git status --porcelain)" ]; then
+          FILES="assets/stats.svg assets/streak.svg assets/langs.svg assets/year.svg assets/projects.svg"
+
+          if [ -z "$(git status --porcelain -- $FILES)" ]; then
             echo "No changes — skipping commit."
             exit 0
           fi
 
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- $FILES
           git commit -m "stats: auto-refresh [skip ci]"
           git push
