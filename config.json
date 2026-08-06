@@ -1,0 +1,37 @@
+{
+  "mission": "Crafting intelligent systems. Merging AI research with production-grade engineering.",
+  "philosophy": [
+    {
+      "title": "Minimalism First",
+      "description": "Code should be as simple as possible, but no simpler. I ruthlessly eliminate complexity and focus on clean, maintainable architecture."
+    },
+    {
+      "title": "Data-Driven AI",
+      "description": "I believe in building AI systems that solve real problems. A great model is useless without exceptional data engineering and a flawless user experience."
+    },
+    {
+      "title": "Invisible Polish",
+      "description": "The difference between good and great is in the details nobody consciously notices. Perfect spacing, strict typography, and calm motion."
+    }
+  ],
+  "timeline": [
+    {
+      "year": "2024",
+      "role": "AI Engineer & Full Stack Developer",
+      "company": "Monkey Doo",
+      "description": "Building multi-agent systems and intelligent APIs using Python, LangGraph, and FastAPI."
+    },
+    {
+      "year": "2022",
+      "role": "BS Artificial Intelligence",
+      "company": "University of Peshawar",
+      "description": "Pursuing advanced studies in machine learning, neural networks, and modern software engineering paradigms."
+    },
+    {
+      "year": "2021",
+      "role": "Independent Developer",
+      "company": "Open Source",
+      "description": "Began crafting web applications and delving into backend architecture with React and Python."
+    }
+  ]
+}
