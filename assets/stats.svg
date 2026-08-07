@@ -38,76 +38,33 @@
 </style>
 <rect width="820" height="160" fill="#09090B"/>
 <g class="a-up">
-<text x="20" y="58" font-size="40" fill="#FAFAFA" font-weight="700" text-anchor="start" dominant-baseline="auto">1,134</text>
+<text x="20" y="58" font-size="40" fill="#FAFAFA" font-weight="700" text-anchor="start" dominant-baseline="auto">73</text>
 <text x="20" y="78" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" letter-spacing="0.04em" dominant-baseline="auto">contributions · past year</text>
-<text x="20" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">1,103</text>
+<text x="20" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">59</text>
 <text x="20" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">commits</text>
-<text x="70" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">22</text>
+<text x="70" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">0</text>
 <text x="70" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">pull requests</text>
-<text x="120" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">9</text>
+<text x="120" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">0</text>
 <text x="120" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">issues</text>
-<text x="170" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">18</text>
+<text x="170" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">9</text>
 <text x="170" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">stars</text>
-<text x="220" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">24</text>
+<text x="220" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">28</text>
 <text x="220" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">repos</text>
-<text x="270" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">12</text>
+<text x="270" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">6</text>
 <text x="270" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">followers</text>
 <line x1="320" y1="14" x2="320" y2="146" stroke="#2A2A2F" stroke-width="1"/>
 <text x="330" y="14" font-size="9" fill="#52525B" font-weight="400" text-anchor="start" letter-spacing="0.06em" dominant-baseline="auto">weekly activity</text>
-<rect x="330" y="124" width="7" height="6" fill="#18181B" rx="1"/>
-<rect x="338" y="101" width="7" height="29" fill="#18181B" rx="1"/>
-<rect x="346" y="20" width="7" height="110" fill="#18181B" rx="1"/>
-<rect x="354" y="92" width="7" height="38" fill="#18181B" rx="1"/>
-<rect x="362" y="85" width="7" height="45" fill="#18181B" rx="1"/>
-<rect x="370" y="92" width="7" height="38" fill="#18181B" rx="1"/>
-<rect x="378" y="105" width="7" height="25" fill="#18181B" rx="1"/>
-<rect x="386" y="127" width="7" height="3" fill="#18181B" rx="1"/>
-<rect x="394" y="108" width="7" height="22" fill="#18181B" rx="1"/>
-<rect x="402" y="43" width="7" height="87" fill="#18181B" rx="1"/>
-<rect x="410" y="79" width="7" height="51" fill="#18181B" rx="1"/>
-<rect x="418" y="63" width="7" height="67" fill="#18181B" rx="1"/>
-<rect x="426" y="53" width="7" height="77" fill="#18181B" rx="1"/>
-<rect x="434" y="105" width="7" height="25" fill="#18181B" rx="1"/>
-<rect x="442" y="114" width="7" height="16" fill="#18181B" rx="1"/>
-<rect x="450" y="79" width="7" height="51" fill="#18181B" rx="1"/>
-<rect x="458" y="27" width="7" height="103" fill="#18181B" rx="1"/>
-<rect x="466" y="105" width="7" height="25" fill="#18181B" rx="1"/>
-<rect x="474" y="121" width="7" height="9" fill="#18181B" rx="1"/>
-<rect x="482" y="95" width="7" height="35" fill="#18181B" rx="1"/>
-<rect x="490" y="66" width="7" height="64" fill="#18181B" rx="1"/>
-<rect x="498" y="82" width="7" height="48" fill="#18181B" rx="1"/>
-<rect x="506" y="92" width="7" height="38" fill="#18181B" rx="1"/>
-<rect x="514" y="118" width="7" height="12" fill="#18181B" rx="1"/>
-<rect x="522" y="111" width="7" height="19" fill="#18181B" rx="1"/>
-<rect x="530" y="69" width="7" height="61" fill="#18181B" rx="1"/>
-<rect x="538" y="108" width="7" height="22" fill="#18181B" rx="1"/>
-<rect x="546" y="69" width="7" height="61" fill="#18181B" rx="1"/>
-<rect x="554" y="98" width="7" height="32" fill="#18181B" rx="1"/>
-<rect x="562" y="53" width="7" height="77" fill="#18181B" rx="1"/>
-<rect x="570" y="95" width="7" height="35" fill="#18181B" rx="1"/>
-<rect x="578" y="111" width="7" height="19" fill="#18181B" rx="1"/>
-<rect x="586" y="56" width="7" height="74" fill="#18181B" rx="1"/>
-<rect x="594" y="69" width="7" height="61" fill="#18181B" rx="1"/>
-<rect x="602" y="69" width="7" height="61" fill="#18181B" rx="1"/>
-<rect x="610" y="101" width="7" height="29" fill="#18181B" rx="1"/>
-<rect x="618" y="98" width="7" height="32" fill="#18181B" rx="1"/>
-<rect x="626" y="111" width="7" height="19" fill="#18181B" rx="1"/>
-<rect x="634" y="121" width="7" height="9" fill="#18181B" rx="1"/>
-<rect x="642" y="95" width="7" height="35" fill="#18181B" rx="1"/>
-<rect x="650" y="98" width="7" height="32" fill="#18181B" rx="1"/>
-<rect x="658" y="85" width="7" height="45" fill="#18181B" rx="1"/>
-<rect x="666" y="98" width="7" height="32" fill="#18181B" rx="1"/>
-<rect x="674" y="121" width="7" height="9" fill="#18181B" rx="1"/>
-<rect x="682" y="85" width="7" height="45" fill="#18181B" rx="1"/>
-<rect x="690" y="124" width="7" height="6" fill="#18181B" rx="1"/>
-<rect x="698" y="50" width="7" height="80" fill="#18181B" rx="1"/>
-<rect x="706" y="101" width="7" height="29" fill="#18181B" rx="1"/>
-<rect x="714" y="118" width="7" height="12" fill="#18181B" rx="1"/>
-<rect x="722" y="85" width="7" height="45" fill="#18181B" rx="1"/>
-<rect x="730" y="85" width="7" height="45" fill="#18181B" rx="1"/>
-<rect x="738" y="101" width="7" height="29" fill="#18181B" rx="1"/>
-<rect x="746" y="111" width="7" height="19" fill="#18181B" rx="1"/>
-<rect x="754" y="111" width="7" height="19" fill="#6366F1" rx="1"/>
+<rect x="339" y="112" width="8" height="18" fill="#18181B" rx="1"/>
+<rect x="348" y="121" width="8" height="9" fill="#18181B" rx="1"/>
+<rect x="456" y="127" width="8" height="3" fill="#18181B" rx="1"/>
+<rect x="474" y="124" width="8" height="6" fill="#18181B" rx="1"/>
+<rect x="555" y="124" width="8" height="6" fill="#18181B" rx="1"/>
+<rect x="564" y="121" width="8" height="9" fill="#18181B" rx="1"/>
+<rect x="618" y="118" width="8" height="12" fill="#18181B" rx="1"/>
+<rect x="636" y="118" width="8" height="12" fill="#18181B" rx="1"/>
+<rect x="645" y="124" width="8" height="6" fill="#18181B" rx="1"/>
+<rect x="789" y="20" width="8" height="110" fill="#18181B" rx="1"/>
+<rect x="798" y="100" width="8" height="30" fill="#6366F1" rx="1"/>
 <line x1="330" y1="130" x2="810" y2="130" stroke="#2A2A2F" stroke-width="1"/>
 </g>
 </svg>
