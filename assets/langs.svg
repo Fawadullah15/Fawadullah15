@@ -41,33 +41,33 @@
 <text x="20" y="18" font-size="9" fill="#71717A" font-weight="600" text-anchor="start" letter-spacing="0.12em" dominant-baseline="auto">LANGUAGE DISTRIBUTION</text>
 <text x="20" y="49" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">HTML</text>
 <rect x="180" y="41" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="41" width="271" height="10" rx="3" fill="#FAFAFA" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.10s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="49" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">57.7%</text>
+<rect x="180" y="41" width="246" height="10" rx="3" fill="#FAFAFA" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.10s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="49" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">52.4%</text>
 <text x="20" y="73" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">TypeScript</text>
 <rect x="180" y="65" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="65" width="136" height="10" rx="3" fill="#D4D4D8" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="73" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">29.0%</text>
+<rect x="180" y="65" width="166" height="10" rx="3" fill="#D4D4D8" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="73" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">35.4%</text>
 <text x="20" y="97" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">Python</text>
 <rect x="180" y="89" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="89" width="20" height="10" rx="3" fill="#A1A1AA" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.20s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="97" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">4.3%</text>
+<rect x="180" y="89" width="18" height="10" rx="3" fill="#A1A1AA" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.20s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="97" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">3.9%</text>
 <text x="20" y="121" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">CSS</text>
 <rect x="180" y="113" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="113" width="15" height="10" rx="3" fill="#71717A" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="121" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">3.3%</text>
+<rect x="180" y="113" width="14" height="10" rx="3" fill="#71717A" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="121" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">3.1%</text>
 <text x="20" y="145" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">JavaScript</text>
 <rect x="180" y="137" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="137" width="14" height="10" rx="3" fill="#52525B" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.30s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="145" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">3.0%</text>
+<rect x="180" y="137" width="12" height="10" rx="3" fill="#52525B" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.30s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="145" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">2.7%</text>
 <text x="20" y="169" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">Java</text>
 <rect x="180" y="161" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="161" width="12" height="10" rx="3" fill="#3F3F46" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="169" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">2.8%</text>
-<rect x="20" y="204" width="449" height="4" fill="#FAFAFA" rx="0"/>
-<rect x="469" y="204" width="226" height="4" fill="#D4D4D8" rx="0"/>
-<rect x="695" y="204" width="33" height="4" fill="#A1A1AA" rx="0"/>
-<rect x="728" y="204" width="25" height="4" fill="#71717A" rx="0"/>
-<rect x="753" y="204" width="23" height="4" fill="#52525B" rx="0"/>
-<rect x="776" y="204" width="21" height="4" fill="#3F3F46" rx="0"/>
+<rect x="180" y="161" width="11" height="10" rx="3" fill="#3F3F46" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="169" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">2.5%</text>
+<rect x="20" y="204" width="408" height="4" fill="#FAFAFA" rx="0"/>
+<rect x="428" y="204" width="276" height="4" fill="#D4D4D8" rx="0"/>
+<rect x="704" y="204" width="30" height="4" fill="#A1A1AA" rx="0"/>
+<rect x="734" y="204" width="23" height="4" fill="#71717A" rx="0"/>
+<rect x="757" y="204" width="21" height="4" fill="#52525B" rx="0"/>
+<rect x="778" y="204" width="19" height="4" fill="#3F3F46" rx="0"/>
 </g>
 </svg>
