@@ -50,7 +50,7 @@
 <text x="170" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">stars</text>
 <text x="220" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">29</text>
 <text x="220" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">repos</text>
-<text x="270" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">7</text>
+<text x="270" y="108" font-size="12" fill="#E4E4E7" font-weight="600" text-anchor="start" dominant-baseline="auto">8</text>
 <text x="270" y="124" font-size="9" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">followers</text>
 <line x1="320" y1="14" x2="320" y2="146" stroke="#2A2A2F" stroke-width="1"/>
 <text x="330" y="14" font-size="9" fill="#52525B" font-weight="400" text-anchor="start" letter-spacing="0.06em" dominant-baseline="auto">weekly activity</text>
