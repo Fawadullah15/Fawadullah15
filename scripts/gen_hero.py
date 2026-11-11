@@ -3,9 +3,10 @@ gen_hero.py — Cinematic hero banner SVG.
 
 Full-width dark canvas with:
   - Large name typography with accent gradient shimmer
-  - Animated status indicator ("● Available for opportunities")
+  - Animated status indicator ("● Building Quantum AI & Mech Copilot")
   - Subtle glowing mesh background
   - Role tags with stagger animations
+  - Location and university credentials
   - Elegant divider
 """
 
@@ -43,30 +44,31 @@ def mesh_bg() -> str:
 
 
 def status_pill(x: int, y: int) -> str:
-    """Animated 'Available' status badge."""
+    """Animated 'Building' status badge."""
+    pill_text = "Building Quantum AI · Mech Copilot"
+    w_pill = 240
     return (
         group_open(cls="a-in", delay=0.1) +
         # Pill background
-        f'<rect x="{x}" y="{y}" width="210" height="26" rx="13" '
+        f'<rect x="{x}" y="{y}" width="{w_pill}" height="26" rx="13" '
         f'fill="{COLORS["accent_bg"]}" stroke="{COLORS["accent"]}" stroke-width="1" opacity="0.9"/>\n'
         # Pulsing dot
-        f'<circle cx="{x+18}" cy="{y+13}" r="4" fill="{COLORS["accent"]}" class="a-pulse"/>\n'
+        f'<circle cx="{x+16}" cy="{y+13}" r="4" fill="{COLORS["accent"]}" class="a-pulse"/>\n'
         # Text
-        + text_el(x+30, y+17, "Available for opportunities",
+        + text_el(x+28, y+17, pill_text,
                   size=10, color=COLORS["accent_hi"], weight="500") +
         group_close()
     )
 
 
 def role_tags(x: int, y: int) -> str:
-    """Elegant role identifiers — staggered fade."""
-    roles = ["AI Engineer", "Full-Stack Developer", "Founder", "Open Source"]
+    """Authoritative role identifiers — staggered fade."""
+    roles = ["AI Engineer", "Automation Engineer", "CEO & Co-Founder", "Multi-Agent Systems"]
     out = ""
     cx = x
     for i, role in enumerate(roles):
         delay = staggered(i, 0.5, 0.08)
         pad_x, pad_y = 12, 6
-        # Estimate width: ~7.5px per char at size 12
         w_est = int(len(role) * 7.2) + pad_x * 2
         out += group_open(cls="a-up", delay=delay)
         out += rect_el(cx, y, w_est, 28, fill=COLORS["bg3"],
@@ -105,7 +107,7 @@ def make_hero() -> str:
     # ── Mission line ─────────────────────────────────────────
     out += group_open(cls="a-up", delay=0.4)
     out += text_el(30, 252,
-                   "Crafting intelligent systems. Merging AI research with production engineering.",
+                   "Architecting agentic AI systems, workflow automation, and intelligent engineering platforms.",
                    size=13, color=COLORS["text_sec"], weight="400")
     out += group_close()
 
@@ -118,7 +120,7 @@ def make_hero() -> str:
 
     # ── Location tag ─────────────────────────────────────────
     out += group_open(cls="a-in", delay=0.7)
-    out += text_el(W - 30, 54, "Pakistan  ·  University of Peshawar",
+    out += text_el(W - 30, 54, "Peshawar, Pakistan  ·  University of Peshawar",
                    size=10, color=COLORS["dim"], anchor="end", weight="400")
     out += group_close()
 

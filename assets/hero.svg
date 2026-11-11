@@ -39,38 +39,38 @@
 <rect width="820" height="340" fill="#09090B"/>
 <defs><radialGradient id="meshGlow" cx="30%" cy="40%" r="60%" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6366F1" stop-opacity="0.06"/><stop offset="100%" stop-color="#09090B" stop-opacity="0"/></radialGradient><radialGradient id="meshGlow2" cx="80%" cy="70%" r="40%" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818CF8" stop-opacity="0.04"/><stop offset="100%" stop-color="#09090B" stop-opacity="0"/></radialGradient><linearGradient id="nameGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#818CF8"/></linearGradient></defs><rect width="820" height="340" fill="url(#meshGlow)"/><rect width="820" height="340" fill="url(#meshGlow2)"/><rect x="0" y="0" width="3" height="340" fill="#6366F1" rx="0"/>
 <g class="a-in" style="animation-delay:0.10s">
-<rect x="32" y="36" width="210" height="26" rx="13" fill="#1E1B4B" stroke="#6366F1" stroke-width="1" opacity="0.9"/>
-<circle cx="50" cy="49" r="4" fill="#6366F1" class="a-pulse"/>
-<text x="62" y="53" font-size="10" fill="#818CF8" font-weight="500" text-anchor="start" dominant-baseline="auto">Available for opportunities</text>
+<rect x="32" y="36" width="240" height="26" rx="13" fill="#1E1B4B" stroke="#6366F1" stroke-width="1" opacity="0.9"/>
+<circle cx="48" cy="49" r="4" fill="#6366F1" class="a-pulse"/>
+<text x="60" y="53" font-size="10" fill="#818CF8" font-weight="500" text-anchor="start" dominant-baseline="auto">Building Quantum AI · Mech Copilot</text>
 </g>
 <g class="a-up" style="animation-delay:0.20s">
 <text x="32" y="148" font-size="72" fill="#18181B" font-weight="800" text-anchor="start" opacity="0.6" dominant-baseline="auto">FAWADULLAH</text>
 <text x="30" y="146" font-size="72" fill="url(#nameGrad)" font-weight="800" text-anchor="start" dominant-baseline="auto">FAWADULLAH</text>
 </g>
 <g class="a-up" style="animation-delay:0.30s">
-<text x="30" y="210" font-size="72" fill="#FAFAFA" font-weight="800" text-anchor="start" letter-spacing="0.04em" dominant-baseline="auto">IMRAJ</text>
+<text x="30" y="210" font-size="72" fill="#FAFAFA" font-weight="800" letter-spacing="0.04em" text-anchor="start" dominant-baseline="auto">IMRAJ</text>
 </g>
 <g class="a-up" style="animation-delay:0.40s">
-<text x="30" y="252" font-size="13" fill="#A1A1AA" font-weight="400" text-anchor="start" dominant-baseline="auto">Crafting intelligent systems. Merging AI research with production engineering.</text>
+<text x="30" y="252" font-size="13" fill="#A1A1AA" font-weight="400" text-anchor="start" dominant-baseline="auto">Architecting agentic AI systems, workflow automation, and intelligent engineering platforms.</text>
 </g>
 <g class="a-up" style="animation-delay:0.50s">
 <rect x="30" y="274" width="103" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
 <text x="42" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">AI Engineer</text>
 </g>
 <g class="a-up" style="animation-delay:0.58s">
-<rect x="141" y="274" width="168" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
-<text x="153" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">Full-Stack Developer</text>
+<rect x="141" y="274" width="160" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
+<text x="153" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">Automation Engineer</text>
 </g>
 <g class="a-up" style="animation-delay:0.66s">
-<rect x="317" y="274" width="74" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
-<text x="329" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">Founder</text>
+<rect x="309" y="274" width="138" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
+<text x="321" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">CEO &amp; Co-Founder</text>
 </g>
 <g class="a-up" style="animation-delay:0.74s">
-<rect x="399" y="274" width="103" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
-<text x="411" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">Open Source</text>
+<rect x="455" y="274" width="160" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
+<text x="467" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">Multi-Agent Systems</text>
 </g>
 <line x1="30" y1="339" x2="790" y2="339" stroke="#2A2A2F" stroke-width="1" opacity="0.6"/>
 <g class="a-in" style="animation-delay:0.70s">
-<text x="790" y="54" font-size="10" fill="#71717A" font-weight="400" text-anchor="end" dominant-baseline="auto">Pakistan  ·  University of Peshawar</text>
+<text x="790" y="54" font-size="10" fill="#71717A" font-weight="400" text-anchor="end" dominant-baseline="auto">Peshawar, Pakistan  ·  University of Peshawar</text>
 </g>
 </svg>

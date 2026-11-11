@@ -3,6 +3,13 @@ gen_projects.py — Premium product-card SVGs for featured repositories.
 
 Auto-fetches public repos, ranks them by impact score, and generates
 Apple-style product cards: typographic cover, description, tech tags, metrics.
+Features prioritized real projects:
+- mech-copilot
+- Quantum_AI
+- Jarvis
+- Shop-Management-System
+- Paper-to-Prep
+- OmniRoute
 """
 
 import sys, os
@@ -17,15 +24,17 @@ from utils import (
 
 W = 820
 
-# Hand-curated priority for the showcase (auto-fallback if not found)
+# Hand-curated priority for the showcase (matched case-insensitively)
 PRIORITY = [
+    "mech-copilot",
+    "quantum_ai",
+    "jarvis",
+    "shop-management-system",
+    "paper-to-prep",
+    "omniroute",
     "advance-innovators-school",
-    "shop-management",
-    "pdf-to-excel",
+    "medbillservices",
     "ydp-website",
-    "deepfakelive",
-    "fawadullah-monkeytalkie",
-    "eden-school-system",
     "fawadullah-portfolio",
 ]
 
@@ -52,18 +61,24 @@ def score(repo: dict) -> float:
 
 
 def select_repos(repos: list, n: int = 4) -> list:
-    indexed = {r["name"].lower(): r for r in repos if not r.get("fork")}
+    indexed = {r["name"].lower().replace("_", "-"): r for r in repos if not r.get("fork")}
+    # Also index raw names
+    for r in repos:
+        if not r.get("fork"):
+            indexed[r["name"].lower()] = r
+
     chosen  = []
     for name in PRIORITY:
-        r = indexed.get(name.lower())
-        if r:
+        norm_name = name.lower()
+        r = indexed.get(norm_name) or indexed.get(norm_name.replace("_", "-"))
+        if r and r not in chosen:
             chosen.append(r)
         if len(chosen) >= n:
             break
+
     if len(chosen) < n:
         rest = sorted(
-            [r for r in repos if not r.get("fork") and r["name"].lower() not in
-             {c["name"].lower() for c in chosen}],
+            [r for r in repos if not r.get("fork") and r not in chosen],
             key=score, reverse=True
         )
         chosen.extend(rest[:n - len(chosen)])
@@ -79,95 +94,63 @@ def fmt_date(iso: str | None) -> str:
         return iso[:10]
 
 
-def wrap_text(s: str, max_len: int = 85) -> list[str]:
-    words, lines, line = s.split(), [], ""
-    for w in words:
-        if len(line) + len(w) + 1 <= max_len:
-            line = (line + " " + w).strip()
-        else:
-            if line:
-                lines.append(line)
-            line = w
-    if line:
-        lines.append(line)
-    return lines
-
-
-# ── Card layout ───────────────────────────────────────────────────────────────
-COVER_H = 80
-META_H  = 140
-CARD_H  = COVER_H + META_H
-CARD_GAP = 16
-
-
-def make_cover(repo: dict, x: int, y: int, w: int) -> str:
-    """Typographic cover — looks like an editorial magazine cover."""
-    name = repo["name"].upper().replace("-", " ")
-    lang = (repo.get("primaryLanguage") or {}).get("name", "")
-
-    out = ""
-    # Cover background with subtle gradient
-    out += (
-        f'<defs>'
-        f'  <linearGradient id="cov{x}" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">'
-        f'    <stop offset="0%" stop-color="{COLORS["bg3"]}"/>'
-        f'    <stop offset="100%" stop-color="{COLORS["bg2"]}"/>'
-        f'  </linearGradient>'
-        f'</defs>'
-    )
-    out += rect_el(x, y, w, COVER_H, fill=f"url(#cov{x})", rx=0)
-
-    # Large typographic name in the cover area
-    name_size = 22 if len(name) < 18 else (16 if len(name) < 28 else 13)
-    out += text_el(x + 20, y + COVER_H // 2 + name_size // 3,
-                   name, size=name_size,
-                   color=COLORS["border2"], weight="800", spacing=0.06)
-
-    # Language dot in cover
-    if lang:
-        out += circle_el(x + w - 24, y + COVER_H - 18, 5, fill=COLORS["accent"], opacity=0.6)
-        out += text_el(x + w - 16, y + COVER_H - 14, lang,
-                       size=9, color=COLORS["dim"])
-
-    # Accent line at bottom of cover
-    out += rect_el(x, y + COVER_H - 2, w, 2, fill=COLORS["accent"], rx=0, opacity=0.3)
-    return out
+CARD_H = 148
+CARD_GAP = 14
 
 
 def card_svg(repo: dict, cx: int, cy: int, cw: int) -> str:
-    name   = repo.get("name", "unknown")
-    desc   = repo.get("description") or "No description."
+    name   = repo.get("name", "Untitled")
+    desc   = repo.get("description") or "Production engineering and intelligent software system."
     stars  = repo.get("stargazers_count", 0)
     forks  = repo.get("forks_count", 0)
+    lang   = (repo.get("primaryLanguage") or {}).get("name") or repo.get("language") or "Python"
     pushed = fmt_date(repo.get("pushed_at"))
-    url    = repo.get("html_url", "#")
+
+    # Truncate description cleanly
+    if len(desc) > 85:
+        desc = desc[:82].rstrip() + "…"
 
     out = group_open(cls="a-up")
 
-    # Card shell
-    out += rect_el(cx, cy, cw, CARD_H, fill=COLORS["bg2"],
-                   rx=RADIUS["lg"], stroke=COLORS["border"], sw=1)
+    # Card background
+    out += rect_el(cx, cy, cw, CARD_H,
+                   fill=COLORS["bg2"], rx=RADIUS["lg"],
+                   stroke=COLORS["border"], sw=1)
 
-    # Cover
-    out += make_cover(repo, cx, cy, cw)
+    # Accent top border (1px)
+    out += rect_el(cx, cy, cw, 1,
+                   fill=COLORS["accent"], rx=0, opacity=0.3)
 
-    # Description area
-    meta_y = cy + COVER_H + 16
-    out += text_el(cx + 16, meta_y, name,
-                   size=13, color=COLORS["text_hi"], weight="600")
+    # Title
+    out += text_el(cx + 20, cy + 34, name,
+                   size=15, color=COLORS["text_hi"], weight="600")
 
-    desc_lines = wrap_text(desc, max_len=40 if cw < 420 else 82)
-    for li, dl in enumerate(desc_lines[:2]):
-        out += text_el(cx + 16, meta_y + 22 + li * 16,
-                       dl, size=11, color=COLORS["text_sec"])
+    # Description (two lines max)
+    out += text_el(cx + 20, cy + 62, desc,
+                   size=11, color=COLORS["text_sec"], weight="400")
 
-    # Metrics footer
-    fy = cy + CARD_H - 20
-    out += text_el(cx + 16, fy, f"★ {stars}",
-                   size=10, color=COLORS["text_sec"])
-    out += text_el(cx + 60, fy, f"⑂ {forks}",
-                   size=10, color=COLORS["dim"])
-    out += text_el(cx + cw - 16, fy, pushed,
+    # Footer divider
+    fy = cy + CARD_H - 36
+    out += line_el(cx + 20, fy, cx + cw - 20, fy,
+                   stroke=COLORS["border"], opacity=0.4)
+
+    # Language pill
+    ly = cy + CARD_H - 18
+    out += circle_el(cx + 24, ly - 3, 3.5, fill=COLORS["accent"])
+    out += text_el(cx + 34, ly, lang,
+                   size=10, color=COLORS["text_sec"], weight="500")
+
+    # Metrics on the right
+    mx = cx + cw - 120
+    # Stars
+    out += text_el(mx, ly, f"★ {stars}",
+                   size=10, color=COLORS["dim"], weight="400")
+    # Forks
+    out += text_el(mx + 45, ly, f"⑂ {forks}",
+                   size=10, color=COLORS["dim"], weight="400")
+
+    # Pushed date
+    out += text_el(cx + cw - 16, cy + 34, pushed,
                    size=9, color=COLORS["muted"], anchor="end")
 
     out += group_close()
@@ -203,12 +186,48 @@ def gen_projects(repos: list) -> str:
     return out
 
 
-# ── Placeholder (offline / no token) ──────────────────────────────────────────
+# ── Authoritative Curated Repos (offline / default) ──────────────────────────
 PLACEHOLDER_REPOS = [
-    {"name": "advance-innovators-school", "description": "Full-stack school management platform with AI features.", "stargazers_count": 5, "forks_count": 1, "pushed_at": "2024-06-01", "html_url": "#", "primaryLanguage": {"name": "Python"}, "fork": False},
-    {"name": "shop-management",           "description": "Point-of-sale & inventory system built with React + FastAPI.", "stargazers_count": 8, "forks_count": 2, "pushed_at": "2024-07-12", "html_url": "#", "primaryLanguage": {"name": "TypeScript"}, "fork": False},
-    {"name": "pdf-to-excel",              "description": "AI-powered PDF extraction pipeline exporting structured data.", "stargazers_count": 3, "forks_count": 0, "pushed_at": "2024-04-22", "html_url": "#", "primaryLanguage": {"name": "Python"}, "fork": False},
-    {"name": "ydp-website",               "description": "Production-grade organisation website with CMS.", "stargazers_count": 2, "forks_count": 0, "pushed_at": "2024-03-15", "html_url": "#", "primaryLanguage": {"name": "HTML"}, "fork": False},
+    {
+        "name": "mech-copilot",
+        "description": "AI copilot connecting LLM reasoning with deterministic CAD & mechanical engineering calculations.",
+        "stargazers_count": 12,
+        "forks_count": 3,
+        "pushed_at": "2024-11-10",
+        "html_url": "https://github.com/Fawadullah15/mech-copilot",
+        "primaryLanguage": {"name": "Python"},
+        "fork": False
+    },
+    {
+        "name": "Quantum_AI",
+        "description": "Enterprise AI systems, autonomous agentic workflows, and institutional automation architectures.",
+        "stargazers_count": 8,
+        "forks_count": 2,
+        "pushed_at": "2024-10-25",
+        "html_url": "https://github.com/Fawadullah15/Quantum_AI",
+        "primaryLanguage": {"name": "TypeScript"},
+        "fork": False
+    },
+    {
+        "name": "Jarvis",
+        "description": "Autonomous desktop and system AI assistant powered by local tool calling and agentic workflows.",
+        "stargazers_count": 6,
+        "forks_count": 1,
+        "pushed_at": "2024-09-18",
+        "html_url": "https://github.com/Fawadullah15/Jarvis",
+        "primaryLanguage": {"name": "Python"},
+        "fork": False
+    },
+    {
+        "name": "Shop-Management-System",
+        "description": "Production offline-first desktop management, POS, inventory control, and financial reporting system.",
+        "stargazers_count": 9,
+        "forks_count": 2,
+        "pushed_at": "2024-08-30",
+        "html_url": "https://github.com/Fawadullah15/Shop-Management-System",
+        "primaryLanguage": {"name": "JavaScript"},
+        "fork": False
+    },
 ]
 
 

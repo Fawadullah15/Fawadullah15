@@ -1,8 +1,9 @@
 """
 gen_skills.py — Animated skill grid SVG.
 
-Categorized skills rendered as elegant tag clouds.
-No boring badge walls. Each category has its own visual block.
+Categorized competencies rendered as clean, high-density pill groups.
+Focuses strictly on verified skills: AI Engineering, Agentic Systems,
+Backend Architecture, Full-Stack, and DevOps/Pipelines.
 """
 
 import sys
@@ -18,20 +19,20 @@ W = 820
 
 SKILL_GROUPS = [
     {
-        "label": "AI / ML",
-        "skills": ["LangChain", "LangGraph", "MCP", "OpenAI API", "LLMs", "RAG", "Agents", "ML"],
+        "label": "AI & Agentic Systems",
+        "skills": ["LangChain", "LangGraph", "Model Context Protocol (MCP)", "RAG Architecture", "Multi-Agent Systems", "Deterministic Tool Calling", "OpenAI API", "Hugging Face"],
     },
     {
-        "label": "Backend",
-        "skills": ["Python", "FastAPI", "REST API", "SQLite", "Docker", "Linux", "Git"],
+        "label": "Backend Engineering & Automation",
+        "skills": ["Python", "FastAPI", "RESTful APIs", "Workflow Automation", "SQLite", "PostgreSQL", "Docker", "Linux Shell"],
     },
     {
-        "label": "Frontend",
-        "skills": ["React", "TypeScript", "JavaScript", "Vite", "Tailwind CSS", "HTML/CSS"],
+        "label": "Full-Stack Development",
+        "skills": ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "HTML5/CSS3", "Vite"],
     },
     {
-        "label": "Tools & DevOps",
-        "skills": ["GitHub Actions", "Git", "VS Code", "Postman", "Docker Compose"],
+        "label": "Architecture & Engineering Tooling",
+        "skills": ["System Design", "Git & GitHub", "GitHub Actions CI/CD", "Postman", "API Integration", "CAD Formula Integration"],
     },
 ]
 
@@ -46,7 +47,6 @@ LABEL_H   = 20
 
 def skill_pill(x: int, y: int, text: str, is_ai: bool = False) -> tuple[str, int]:
     """Returns (svg_str, pill_width)."""
-    # ~7px per char at size 11
     w = int(len(text) * 7.0) + PILL_PAD * 2
     fill   = COLORS["accent_bg"] if is_ai else COLORS["bg3"]
     stroke = COLORS["accent"] if is_ai else COLORS["border"]
@@ -63,7 +63,6 @@ def make_skills() -> str:
     # Pre-calculate total height
     rows_per_group = []
     for grp in SKILL_GROUPS:
-        # Estimate rows needed
         cx = 0
         rows = 1
         for sk in grp["skills"]:
@@ -81,35 +80,40 @@ def make_skills() -> str:
 
     out = svg_open(W, total_h)
 
-    y_cursor = GROUP_TOP
-    for gi, grp in enumerate(SKILL_GROUPS):
-        is_ai = gi == 0
-        g_delay = staggered(gi, 0.0, 0.15)
+    curr_y = GROUP_TOP
+    pill_idx = 0
 
-        out += group_open(cls="a-up", delay=g_delay)
+    for g_idx, grp in enumerate(SKILL_GROUPS):
+        delay = staggered(g_idx, 0.0, 0.08)
+        out += group_open(cls="a-up", delay=delay)
 
-        # Group label
-        out += text_el(0, y_cursor + LABEL_H - 4, grp["label"],
-                       size=10, color=COLORS["accent_hi"] if is_ai else COLORS["dim"],
-                       weight="600", spacing=0.12)
+        # Section label
+        out += text_el(0, curr_y + 14, grp["label"].upper(),
+                       size=10, color=COLORS["dim"], weight="600", spacing=0.08)
 
-        y_cursor += LABEL_H + ROW_GAP
+        # Subtle separator
+        out += line_el(0, curr_y + 20, W, curr_y + 20,
+                       stroke=COLORS["border"], opacity=0.4)
 
-        # Wrap pills
+        curr_y += LABEL_H + ROW_GAP
+
+        # Pills layout
         cx = 0
-        cy = y_cursor
-        for si, sk in enumerate(grp["skills"]):
-            pill_svg, pw = skill_pill(cx, cy, sk, is_ai=is_ai)
-            if cx + pw > W - 4:
+        cy = curr_y
+        is_ai_grp = ("AI" in grp["label"])
+
+        for sk in grp["skills"]:
+            w = int(len(sk) * 7.0) + PILL_PAD * 2
+            if cx + w > W:
                 cx = 0
                 cy += PILL_H + ROW_GAP
-            pill_svg, pw = skill_pill(cx, cy, sk, is_ai=is_ai)
-            out += pill_svg
+
+            p_svg, pw = skill_pill(cx, cy, sk, is_ai=is_ai_grp)
+            out += p_svg
             cx += pw + PILL_GAP
+            pill_idx += 1
 
-        row_count = rows_per_group[gi]
-        y_cursor = cy + PILL_H + GROUP_GAP
-
+        curr_y = cy + PILL_H + GROUP_GAP
         out += group_close()
 
     out += svg_close()

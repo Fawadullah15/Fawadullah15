@@ -2,7 +2,11 @@
 gen_contact.py — Premium contact / connect SVG.
 
 Minimal, elegant contact section with icon-label pairs.
-Feels like the footer of a premium portfolio site.
+Features:
+- GitHub (@Fawadullah15)
+- Email (fawadullah9911@gmail.com)
+- Company (quantumaitech.vercel.app)
+- Location (Peshawar, Pakistan)
 """
 
 import sys
@@ -18,8 +22,9 @@ W, H = 820, 120
 
 LINKS = [
     ("GitHub",   "github.com/Fawadullah15",         "GH"),
-    ("Email",    "fawadullah9911@gmail.com",          "✉"),
-    ("Location", "Pakistan  ·  Open to Remote / Japan", "◎"),
+    ("Email",    "fawadullah9911@gmail.com",        "✉"),
+    ("Company",  "quantumaitech.vercel.app",        "AI"),
+    ("Location", "Peshawar, Pakistan",              "◎"),
 ]
 
 
@@ -29,8 +34,8 @@ def icon_badge(x: int, y: int, glyph: str, size: int = 14) -> str:
     out  = circle_el(x, y, r, fill=COLORS["bg3"])
     out += rect_el(x - r, y - r, r * 2, r * 2,
                    fill="none", stroke=COLORS["border"], rx=r, sw=1)
-    out += text_el(x, y + 5, glyph, size=size, color=COLORS["text_sec"],
-                   anchor="middle", weight="500")
+    out += text_el(x, y + 5, glyph, size=size, color=COLORS["accent_hi"],
+                   anchor="middle", weight="600")
     return out
 
 
