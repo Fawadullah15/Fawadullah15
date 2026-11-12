@@ -48,7 +48,7 @@
 <text x="30" y="146" font-size="72" fill="url(#nameGrad)" font-weight="800" text-anchor="start" dominant-baseline="auto">FAWADULLAH</text>
 </g>
 <g class="a-up" style="animation-delay:0.30s">
-<text x="30" y="210" font-size="72" fill="#FAFAFA" font-weight="800" letter-spacing="0.04em" text-anchor="start" dominant-baseline="auto">IMRAJ</text>
+<text x="30" y="210" font-size="72" fill="#FAFAFA" font-weight="800" text-anchor="start" letter-spacing="0.04em" dominant-baseline="auto">IMRAJ</text>
 </g>
 <g class="a-up" style="animation-delay:0.40s">
 <text x="30" y="252" font-size="13" fill="#A1A1AA" font-weight="400" text-anchor="start" dominant-baseline="auto">Architecting agentic AI systems, workflow automation, and intelligent engineering platforms.</text>
@@ -62,12 +62,12 @@
 <text x="153" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">Automation Engineer</text>
 </g>
 <g class="a-up" style="animation-delay:0.66s">
-<rect x="309" y="274" width="138" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
+<rect x="309" y="274" width="139" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
 <text x="321" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">CEO &amp; Co-Founder</text>
 </g>
 <g class="a-up" style="animation-delay:0.74s">
-<rect x="455" y="274" width="160" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
-<text x="467" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">Multi-Agent Systems</text>
+<rect x="456" y="274" width="160" height="28" fill="#18181B" rx="8" stroke="#3A3A40" stroke-width="1"/>
+<text x="468" y="291" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="start" dominant-baseline="auto">Multi-Agent Systems</text>
 </g>
 <line x1="30" y1="339" x2="790" y2="339" stroke="#2A2A2F" stroke-width="1" opacity="0.6"/>
 <g class="a-in" style="animation-delay:0.70s">

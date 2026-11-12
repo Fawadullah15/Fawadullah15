@@ -39,35 +39,43 @@
 <rect width="820" height="220" fill="#09090B"/>
 <g class="a-up">
 <text x="20" y="18" font-size="9" fill="#71717A" font-weight="600" text-anchor="start" letter-spacing="0.12em" dominant-baseline="auto">LANGUAGE DISTRIBUTION</text>
-<text x="20" y="49" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">Python</text>
+<text x="20" y="49" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">TypeScript</text>
 <rect x="180" y="41" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="41" width="214" height="10" rx="3" fill="#FAFAFA" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.10s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="49" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">45.7%</text>
-<text x="20" y="73" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">JavaScript</text>
+<rect x="180" y="41" width="408" height="10" rx="3" fill="#FAFAFA" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.10s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="49" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">86.9%</text>
+<text x="20" y="73" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">HTML</text>
 <rect x="180" y="65" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="65" width="110" height="10" rx="3" fill="#D4D4D8" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="73" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">23.5%</text>
-<text x="20" y="97" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">TypeScript</text>
+<rect x="180" y="65" width="32" height="10" rx="3" fill="#D4D4D8" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="73" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">6.8%</text>
+<text x="20" y="97" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">JavaScript</text>
 <rect x="180" y="89" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="89" width="92" height="10" rx="3" fill="#A1A1AA" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.20s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="97" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">19.8%</text>
-<text x="20" y="121" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">HTML</text>
+<rect x="180" y="89" width="21" height="10" rx="3" fill="#A1A1AA" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.20s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="97" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">4.5%</text>
+<text x="20" y="121" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">EJS</text>
 <rect x="180" y="113" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="113" width="23" height="10" rx="3" fill="#71717A" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="121" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">4.9%</text>
+<rect x="180" y="113" width="2" height="10" rx="3" fill="#71717A" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="121" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">0.6%</text>
 <text x="20" y="145" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">CSS</text>
 <rect x="180" y="137" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="137" width="17" height="10" rx="3" fill="#52525B" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.30s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="145" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">3.7%</text>
-<text x="20" y="169" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">Dockerfile</text>
+<rect x="180" y="137" width="2" height="10" rx="3" fill="#52525B" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.30s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="145" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">0.5%</text>
+<text x="20" y="169" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">Python</text>
 <rect x="180" y="161" width="470" height="10" fill="#18181B" rx="3"/>
-<rect x="180" y="161" width="11" height="10" rx="3" fill="#3F3F46" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;transform:scaleX(0);transform-origin:180px center;"/>
-<text x="660" y="169" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">2.5%</text>
-<rect x="20" y="204" width="356" height="4" fill="#FAFAFA" rx="0"/>
-<rect x="376" y="204" width="182" height="4" fill="#D4D4D8" rx="0"/>
-<rect x="558" y="204" width="154" height="4" fill="#A1A1AA" rx="0"/>
-<rect x="712" y="204" width="38" height="4" fill="#71717A" rx="0"/>
-<rect x="750" y="204" width="28" height="4" fill="#52525B" rx="0"/>
-<rect x="778" y="204" width="19" height="4" fill="#3F3F46" rx="0"/>
+<rect x="180" y="161" width="1" height="10" rx="3" fill="#3F3F46" style="animation:grow 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s forwards;transform:scaleX(0);transform-origin:180px center;"/>
+<text x="660" y="169" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">0.3%</text>
+<text x="20" y="193" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">Java</text>
+<rect x="180" y="185" width="470" height="10" fill="#18181B" rx="3"/>
+<text x="660" y="193" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">0.2%</text>
+<text x="20" y="217" font-size="11" fill="#E4E4E7" font-weight="400" text-anchor="start" dominant-baseline="auto">Shell</text>
+<rect x="180" y="209" width="470" height="10" fill="#18181B" rx="3"/>
+<text x="660" y="217" font-size="10" fill="#71717A" font-weight="400" text-anchor="start" dominant-baseline="auto">0.2%</text>
+<rect x="20" y="204" width="677" height="4" fill="#FAFAFA" rx="0"/>
+<rect x="697" y="204" width="53" height="4" fill="#D4D4D8" rx="0"/>
+<rect x="750" y="204" width="35" height="4" fill="#A1A1AA" rx="0"/>
+<rect x="785" y="204" width="4" height="4" fill="#71717A" rx="0"/>
+<rect x="789" y="204" width="3" height="4" fill="#52525B" rx="0"/>
+<rect x="792" y="204" width="2" height="4" fill="#3F3F46" rx="0"/>
+<rect x="794" y="204" width="1" height="4" fill="#27272A" rx="0"/>
+<rect x="795" y="204" width="1" height="4" fill="#18181B" rx="0"/>
 </g>
 </svg>

@@ -37,10 +37,10 @@
 .a-grow { animation: grow 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards; transform:scaleX(0); }
 </style>
 <rect width="820" height="354" fill="#09090B"/>
-<g class="a-up" style="animation-delay:0.00s">
+<g class="a-up">
 <rect x="0" y="0" width="820" height="110" fill="#111113" rx="12" stroke="#2A2A2F" stroke-width="1"/>
 <circle cx="28" cy="26" r="4" fill="#6366F1"/>
-<text x="38" y="29" font-size="9" fill="#6366F1" font-weight="500" letter-spacing="0.08em" text-anchor="start" dominant-baseline="auto">ACTIVE DEVELOPMENT</text>
+<text x="38" y="29" font-size="9" fill="#6366F1" font-weight="500" text-anchor="start" letter-spacing="0.08em" dominant-baseline="auto">ACTIVE DEVELOPMENT</text>
 <text x="796" y="29" font-size="10" fill="#A1A1AA" font-weight="400" text-anchor="end" dominant-baseline="auto">Python  ·  LangChain  ·  RAG  ·  CAD Calculations</text>
 <text x="28" y="54" font-size="15" fill="#FAFAFA" font-weight="600" text-anchor="start" dominant-baseline="auto">Mechanical Engineering Copilot</text>
 <text x="28" y="74" font-size="11" fill="#A1A1AA" font-weight="400" text-anchor="start" dominant-baseline="auto">AI-powered copilot connecting LLM reasoning with deterministic engineering math, formulas, and CAD design validation.</text>
@@ -51,7 +51,7 @@
 <g class="a-up" style="animation-delay:0.10s">
 <rect x="0" y="122" width="820" height="110" fill="#111113" rx="12" stroke="#2A2A2F" stroke-width="1"/>
 <circle cx="28" cy="148" r="4" fill="#6366F1"/>
-<text x="38" y="151" font-size="9" fill="#6366F1" font-weight="500" letter-spacing="0.08em" text-anchor="start" dominant-baseline="auto">ACTIVE DEVELOPMENT</text>
+<text x="38" y="151" font-size="9" fill="#6366F1" font-weight="500" text-anchor="start" letter-spacing="0.08em" dominant-baseline="auto">ACTIVE DEVELOPMENT</text>
 <text x="796" y="151" font-size="10" fill="#A1A1AA" font-weight="400" text-anchor="end" dominant-baseline="auto">Multi-Agent Workflows  ·  FastAPI  ·  Next.js</text>
 <text x="28" y="176" font-size="15" fill="#FAFAFA" font-weight="600" text-anchor="start" dominant-baseline="auto">Quantum AI Enterprise Automation</text>
 <text x="28" y="196" font-size="11" fill="#A1A1AA" font-weight="400" text-anchor="start" dominant-baseline="auto">Autonomous multi-agent workflows, client business automation, and intelligent ERP/campus management platforms.</text>
@@ -62,7 +62,7 @@
 <g class="a-up" style="animation-delay:0.20s">
 <rect x="0" y="244" width="820" height="110" fill="#111113" rx="12" stroke="#2A2A2F" stroke-width="1"/>
 <circle cx="28" cy="270" r="4" fill="#F59E0B"/>
-<text x="38" y="273" font-size="9" fill="#F59E0B" font-weight="500" letter-spacing="0.08em" text-anchor="start" dominant-baseline="auto">IN PROGRESS</text>
+<text x="38" y="273" font-size="9" fill="#F59E0B" font-weight="500" text-anchor="start" letter-spacing="0.08em" dominant-baseline="auto">IN PROGRESS</text>
 <text x="796" y="273" font-size="10" fill="#A1A1AA" font-weight="400" text-anchor="end" dominant-baseline="auto">LangGraph  ·  MCP  ·  FastAPI  ·  Tool Calling</text>
 <text x="28" y="298" font-size="15" fill="#FAFAFA" font-weight="600" text-anchor="start" dominant-baseline="auto">Agentic Tooling &amp; MCP Protocols</text>
 <text x="28" y="318" font-size="11" fill="#A1A1AA" font-weight="400" text-anchor="start" dominant-baseline="auto">Structured multi-agent orchestration with persistent memory, Model Context Protocol servers, and automated pipelines.</text>
